@@ -14,5 +14,3 @@ All the api routes will go into api/routes and then import them into index.mts
 
 link to FIGMA design : https://www.figma.com/file/VLwlZ8yMfgGEeoDHNyp5Rl/Zwiggy?node-id=0%3A1
 link to Relational Model:
-
-
