@@ -4,6 +4,7 @@ import React from 'react'
 import styles from './home.module.css'
 import NavBar from '../../components/navbar/navbar'
 import Footer from '../../components/footer/footer'
+import Cards from '../../components/cards/cards'
 
 const Home = () => {
 
@@ -29,9 +30,21 @@ const Home = () => {
                 </form>
                 <div className={styles['endorsement1']}></div>
             </section>
-            <section className={`${styles['features']} ${styles['main']}`}></section>
-            <section className={`${styles['gallery']} ${styles['main']}`}></section>
-            <section className={`${styles['feedback']} ${styles['main']}`}></section>
+            <section className={`${styles['features']} ${styles['main']}`}>
+                <div className={styles.navSpace} />
+                <div className={styles['head']}>Features</div>
+                <div className={styles['cards']}>
+                    <Cards />
+                </div>
+            </section>
+            <section className={`${styles['gallery']} ${styles['main']}`}>
+                <div className={styles.navSpace} />
+                <div className={styles['head']}>Collections</div>
+            </section>
+            <section className={`${styles['feedback']} ${styles['main']}`}>
+                <div className={styles.navSpace} />
+                <div className={styles['head']}>Feedback</div>
+            </section>
             <Footer />
         </div>
     )
