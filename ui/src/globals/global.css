@@ -13,7 +13,7 @@ body,html {
 }
 
 ::-webkit-scrollbar {
-    width: none;
+    width: 0;
 }
 
 a {
