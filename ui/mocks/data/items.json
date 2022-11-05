@@ -1,0 +1,37 @@
+{
+    "data" : [
+        {
+            "flag" : "male",
+            "name" : "anurag"
+        },
+        {
+            "flag" : "female",
+            "name" : "anushka"
+        },
+        {
+            "flag" : "female",
+            "name" : "sristi"
+        },
+        {
+            "flag" : "male",
+            "name" : "shobhit"
+        },
+        {
+            "flag" : "male",
+            "name" : "ansh"
+        },
+        {
+            "flag" : "male",
+            "name" : "vedant"
+        },
+        {
+            "flag" : "female",
+            "name" : "rucha"
+        },
+        {
+            "flag" : "female",
+            "name" : "yashinka"
+        }
+    ]
+    
+}

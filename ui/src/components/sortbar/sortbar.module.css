@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Roboto:wght@400;500&display=swap");
+.sortWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0rem;
+  justify-content: space-between;
+  width: 100vw;
+  height: 10vh;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 5rem;
+  z-index: 10;
+}
+.sortWrapper .resultCount {
+  padding-left: 1.5rem;
+  padding-bottom: 0.5rem;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0rem;
+}
+.sortWrapper .resultCount .overlay {
+  width: 100%;
+  height: 1%;
+  background-color: #ff2e2e;
+  position: absolute;
+  transition: all 0.3s;
+  z-index: -1;
+  opacity: 0;
+  bottom: 0;
+}
+.sortWrapper .resultCount:hover {
+  color: #ff2e2e;
+}
+.sortWrapper .resultCount:hover .overlay {
+  opacity: 1;
+  height: 7.5%;
+}
+.sortWrapper .params {
+  width: auto;
+  height: auto;
+  padding-right: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+}
+.sortWrapper .params div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0rem;
+  padding: 0.25rem 0rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s;
+}
+.sortWrapper .params div .overlay {
+  width: 125%;
+  height: 1%;
+  background-color: #000000;
+  position: absolute;
+  transition: all 0.3s;
+  z-index: -1;
+  opacity: 0;
+}
+.sortWrapper .params div img {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-inline: 0.5rem;
+}
+.sortWrapper .params div:hover {
+  color: #ffffff;
+}
+.sortWrapper .params div:hover .overlay {
+  opacity: 1;
+  height: 100%;
+}
+.sortWrapper .params div:hover img {
+  filter: invert(0);
+}/*# sourceMappingURL=sortbar.module.css.map */

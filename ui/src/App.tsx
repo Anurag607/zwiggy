@@ -1,10 +1,15 @@
-import { useState } from 'react'
+/// <reference path='../typings.d.ts'/>
+import React from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import './globals/global.css'
+import Filter from '../mocks/components/filter/filter.tsx'
+import Home from './pages/home/home.tsx'
+import Cards from './components/cards/cards.tsx'
+import SearchResult from './pages/searchResult/searchResult.tsx'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const Default:React.FC<{count:number, handleclick:React.MouseEventHandler<HTMLButtonElement>}> = (props) => {
   return (
     <div className="App">
       <div>
@@ -17,8 +22,8 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button onClick={props.handleclick}>
+          count is {props.count}
         </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
@@ -28,6 +33,27 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </div>
+  )
+}
+
+function App() {
+  const [count, setCount] = React.useState(0)
+
+  const HandleClick = () => {
+    setCount((count) => count + 1)
+  }
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Default count={count} handleclick = {HandleClick} />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/filter' element={<Filter />} />
+        <Route path='/card' element={<Cards />} />
+        <Route path='/results' element={<SearchResult />} />
+        <Route path='/foodItems' element={<SearchResult />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

@@ -1,0 +1,225 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Roboto:wght@400;500&display=swap");
+.FeaturesCardWrapper {
+  margin: 0;
+  padding: 0.25rem 0.25rem 1.25rem 0.25rem;
+  width: 17rem;
+  height: 23rem;
+  box-shadow: 0 0 0.5rem #b5b5b5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+  border-radius: 1rem;
+}
+.FeaturesCardWrapper .img {
+  width: 16rem;
+  height: 15.5rem;
+  background-image: url("/bg1.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 1rem;
+}
+.FeaturesCardWrapper .content {
+  text-align: center;
+  text-transform: capitalize;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+}
+.FeaturesCardWrapper .content h3 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 1.25rem;
+  text-transform: capitalize;
+  cursor: default;
+  width: 90%;
+}
+.FeaturesCardWrapper .content p {
+  font-size: 0.8rem;
+  width: 85%;
+  cursor: default;
+}
+
+.RestaurantCardWrapper {
+  margin: 0;
+  width: 17rem;
+  height: 25rem;
+  box-shadow: 0 0 0.5rem #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.RestaurantCardWrapper .img {
+  width: 17rem;
+  height: 15.5rem;
+  background-image: url("/pizza.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.RestaurantCardWrapper .content {
+  padding: 0.25rem 0.25rem 1.25rem 0.25rem;
+  text-align: left;
+  text-transform: capitalize;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  width: 16rem;
+  height: auto;
+}
+.RestaurantCardWrapper .content h3 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 1.25rem;
+  text-transform: capitalize;
+  cursor: default;
+  width: 90%;
+}
+.RestaurantCardWrapper .content p {
+  font-size: 0.8rem;
+  width: 85%;
+  cursor: default;
+}
+.RestaurantCardWrapper div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0rem;
+  justify-content: space-between;
+  width: 15.5rem;
+  height: auto;
+}
+.RestaurantCardWrapper div .addToCart {
+  width: 8.5rem;
+  height: auto;
+  border-radius: 0.3rem;
+  background-color: #ffd300;
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  color: #000000;
+}
+.RestaurantCardWrapper div .addToCart img {
+  width: 1rem;
+  height: 1rem;
+}
+.RestaurantCardWrapper div .itemPrice {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  block-size: -webkit-fit-content;
+  block-size: -moz-fit-content;
+  block-size: fit-content;
+  font-size: 1.2rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  padding-right: 0.5rem;
+}
+
+.FoodCardWrapper {
+  margin: 0;
+  height: 11rem;
+  width: 35rem;
+  box-shadow: 0 0 0.5rem #e8e8e8;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  justify-content: flex-start;
+  position: relative;
+  border-radius: 0.5rem;
+}
+.FoodCardWrapper .img {
+  width: 17rem;
+  height: 100%;
+  background-image: url("/pizza.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.FoodCardWrapper .content {
+  text-align: left;
+  text-transform: capitalize;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  width: 17rem;
+  height: auto;
+}
+.FoodCardWrapper .content h3 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  text-transform: capitalize;
+  cursor: default;
+  width: 100%;
+}
+.FoodCardWrapper .content p {
+  font-size: 0.75rem;
+  width: 100%;
+  cursor: default;
+}
+.FoodCardWrapper div {
+  margin-top: 0.25rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0rem;
+  justify-content: space-between;
+  width: 17rem;
+  height: auto;
+}
+.FoodCardWrapper div .addToCart {
+  width: 8.5rem;
+  height: auto;
+  border-radius: 0.3rem;
+  background-color: #ffd300;
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+}
+.FoodCardWrapper div .addToCart img {
+  width: 1rem;
+  height: 1rem;
+}
+.FoodCardWrapper div .itemPrice {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  block-size: -webkit-fit-content;
+  block-size: -moz-fit-content;
+  block-size: fit-content;
+  font-size: 1.25rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  padding-right: 2.5rem;
+}/*# sourceMappingURL=cards.module.css.map */
