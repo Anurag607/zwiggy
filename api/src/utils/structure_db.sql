@@ -4,3 +4,7 @@ CREATE TABLE restaurant (
     address VARCHAR(256),
     rating FLOAT(3, 2)
 );
+CREATE table FoodItem 
+( id int(5) NOT NULL PRIMARY KEY,
+ item_name VARCHAR(30) ,
+ price float );
