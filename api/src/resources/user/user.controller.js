@@ -67,6 +67,11 @@ const loginUser = async (req, res) => {
 
     let user = await service.getUserByEmail(email);
 
+<<<<<<< HEAD
+=======
+    console.log(user[0].password);
+
+>>>>>>> e6d0915 ([api]: setup authentication)
     if(user.length==0 || !(await bcrypt.compare(password, user[0].password))) {
       res.status(400).send({message: "Invalid credentials"});
     }
