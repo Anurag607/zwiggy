@@ -35,7 +35,7 @@ const getOneRestaurant = (id) => {
 }
 
 module.exports = {
-                  getAllRestaurants,
-                  createRestaurant,
-                  getOneRestaurant
-                }
+  getAllRestaurants,
+  createRestaurant,
+  getOneRestaurant
+}
