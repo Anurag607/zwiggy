@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './cards.module.css'
+import { Link } from 'react-router-dom'
 
 const placeholder = {
     heading: 'Lorem ipsum dolor sit amet',
@@ -15,10 +16,12 @@ const RestaurantCard:React.FC<{key?:number, heading?: string, content?:string, p
                 <h3>{props.heading}</h3>
                 <p>{props.content}</p>
                 <div>
-                    <span className={styles.addToCart} id="addToCart">
-                        Explore
-                        <img src="/next.png" alt="addToCart" />
-                    </span>
+                    <Link to='/foodItems'>
+                        <span className={styles.addToCart} id="addToCart">
+                            Explore
+                            <img src="/next.png" alt="addToCart" />
+                        </span>
+                    </Link>
                 </div>
             </section>
         </div>

@@ -116,6 +116,7 @@
   gap: 0.5rem;
   font-family: "Roboto", sans-serif;
   font-weight: 500;
+  color: #000000;
 }
 .RestaurantCardWrapper div .addToCart img {
   width: 1rem;

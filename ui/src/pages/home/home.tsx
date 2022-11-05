@@ -92,7 +92,7 @@ const Home = () => {
                 <div className={styles['endorsement2']}>consectetur adipiscing elit sed do</div>
                 <form onSubmit={HandleSubmit} className={styles.search}>
                     <input type='search' name='search' id='search' value={search} onChange={HandleChange} className={styles['searchBar']}  placeholder='Search your City here' />
-                    <Link to='/items'>
+                    <Link to='/results'>
                         <input type='submit' name='searchSubmit' id='searchsubmit' value='Search' className={styles['searchSubmit']} />
                     </Link>
                 </form>

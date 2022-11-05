@@ -50,7 +50,8 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/filter' element={<Filter />} />
         <Route path='/card' element={<Cards />} />
-        <Route path='/items' element={<SearchResult />} />
+        <Route path='/results' element={<SearchResult />} />
+        <Route path='/foodItems' element={<SearchResult />} />
       </Routes>
     </BrowserRouter>
   )

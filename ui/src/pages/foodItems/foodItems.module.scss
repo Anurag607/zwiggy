@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Roboto:wght@400;500&display=swap');
+
+// background-color: #6b911b;
+// background-color: #819a20;
+// background-color: #d9d40c;
+// background-color: #fce205;
+// background-color: #bc815f;
+// background-color: #ffd300;
+
+@mixin flex($dir : row, $gap : 0rem) {
+    display: flex;
+    flex-direction: $dir;
+    justify-content: center;
+    align-items: center;
+    gap: $gap;
+}
+
+@mixin bg($url : '') {
+    background-image: url($url);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.searchresWrapper {
+    @include flex($dir : column);
+    max-width: 100vw;
+    height: auto;
+    .hero {
+        width: 100vw;
+        height: 100vh;
+        @include bg($url : '/bg3.jpg');
+        z-index: 0;
+        @include flex;
+        .cityName {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            color: #000000;
+            font-size: 2rem;
+            text-align: center;
+            @include flex($gap : 1rem);
+            background-color: #ffffff;
+            width: 57.5vw;
+            height: 2.25rem;
+            padding-block: 1rem;
+            border-radius: 1.5rem;
+            z-index: 1;
+            cursor: default;
+            margin-top: 5.5rem;
+            text-transform: capitalize;
+            .resNum {
+                color: #ffdf00;
+                @include flex($dir : column, $gap : 0.25rem);
+                padding: 0.5rem;
+                cursor: pointer;
+                transition: all 0.3s;
+                position: relative;
+                .overlay {
+                    width: 100%;
+                    height: 0.125rem;
+                    background-color: #fff;
+                    position: absolute;
+                    z-index: -1;
+                    transition: all 0.3s ease-in-out;
+                }
+            }
+            .resNum:hover {
+                color: white;
+                .overlay {
+                    height: 2.5rem;
+                    background-color: #ffdf00;
+                }
+            }
+            .resCity {
+                color: #32cd32;
+                @include flex($dir : column, $gap : 0.25rem);
+                padding: 0.5rem;
+                cursor: pointer;
+                transition: all 0.3s;
+                position: relative;
+                .overlay {
+                    width: 100%;
+                    height: 0.125rem;
+                    background-color: #fff;
+                    position: absolute;
+                    z-index: -1;
+                    transition: all 0.3s ease-in-out;
+                }
+            }
+            .resCity:hover {
+                color: white;
+                .overlay {
+                    height: 2.5rem;
+                    background-color: #32cd32;
+                }
+            }
+        }
+    }
+    .hero::after {
+        content: '';
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0,0,0,0.6);
+    }
+    .results {
+        padding-block: 5rem;
+        width: 100vw;
+        @include flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        row-gap: 2.5rem;
+    }
+}
