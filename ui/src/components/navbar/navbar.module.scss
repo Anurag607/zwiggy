@@ -15,18 +15,16 @@
     background-size: cover;
 }
 
-.wrapper {
+.navWrapper {
     z-index: 1000;
     position: fixed;
     top: 0;
     width: 100vw;
     height: auto;
     margin: 0;
-    margin: 0;
     padding: 0.5rem 0;
     @include flex;
     background-color: #fff;
-    // background-image: linear-gradient(to bottom, white, transparent);
     section {
         @include flex;
         justify-content: flex-end;
@@ -42,6 +40,7 @@
         }
         .logoText {
             font-family: 'Poppins', sans-serif;
+            font-weight: 400;
             font-size: 2rem;
             cursor: pointer;
             color: #000000;
@@ -49,7 +48,6 @@
         .login {
             font-size: 1rem;
             font-family: 'Poppins', sans-serif;
-            font-weight: bold;
             padding: 0.25rem 2rem;
             @include flex;
             text-align: center;

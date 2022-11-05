@@ -6,7 +6,7 @@ import styles from './navbar.module.css'
 
 const NavBar = () => {
     return (
-        <div className={styles["wrapper"]}>
+        <div className={styles["navWrapper"]}>
             <section>
                 <Link to='/home' className={styles.logoImg} />
                 <Link to='/home' className={styles.logoText}>wiggy</Link>

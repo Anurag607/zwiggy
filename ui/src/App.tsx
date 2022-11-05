@@ -5,6 +5,8 @@ import './App.css'
 import './globals/global.css'
 import Filter from '../mocks/components/filter/filter.tsx'
 import Home from './pages/home/home.tsx'
+import Cards from './components/cards/cards.tsx'
+import SearchResult from './pages/searchResult/searchResult.tsx'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 const Default:React.FC<{count:number, handleclick:React.MouseEventHandler<HTMLButtonElement>}> = (props) => {
@@ -47,6 +49,8 @@ function App() {
         <Route path='/' element={<Default count={count} handleclick = {HandleClick} />} />
         <Route path='/home' element={<Home />} />
         <Route path='/filter' element={<Filter />} />
+        <Route path='/card' element={<Cards />} />
+        <Route path='/items' element={<SearchResult />} />
       </Routes>
     </BrowserRouter>
   )

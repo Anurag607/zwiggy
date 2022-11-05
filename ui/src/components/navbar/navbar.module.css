@@ -1,11 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
-.wrapper {
+.navWrapper {
   z-index: 1000;
   position: fixed;
   top: 0;
   width: 100vw;
   height: auto;
-  margin: 0;
   margin: 0;
   padding: 0.5rem 0;
   display: flex;
@@ -15,7 +14,7 @@
   gap: 0rem;
   background-color: #fff;
 }
-.wrapper section {
+.navWrapper section {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -25,7 +24,7 @@
   width: 50%;
   height: auto;
 }
-.wrapper section .logoImg {
+.navWrapper section .logoImg {
   width: 4rem;
   height: 4rem;
   background-image: url("/logo.jpg");
@@ -36,16 +35,16 @@
   margin: 0;
   padding: 0;
 }
-.wrapper section .logoText {
+.navWrapper section .logoText {
   font-family: "Poppins", sans-serif;
+  font-weight: 400;
   font-size: 2rem;
   cursor: pointer;
   color: #000000;
 }
-.wrapper section .login {
+.navWrapper section .login {
   font-size: 1rem;
   font-family: "Poppins", sans-serif;
-  font-weight: bold;
   padding: 0.25rem 2rem;
   display: flex;
   flex-direction: row;
@@ -59,11 +58,11 @@
   color: #000000;
   transition: all 0.3s;
 }
-.wrapper section .login:hover {
+.navWrapper section .login:hover {
   background-color: #000000;
   color: #ffffff;
 }
-.wrapper section .cart {
+.navWrapper section .cart {
   width: 2rem;
   height: 2rem;
   background-image: url("/cart.png");
@@ -72,10 +71,10 @@
   background-size: cover;
   cursor: pointer;
 }
-.wrapper section:nth-child(1) {
+.navWrapper section:nth-child(1) {
   padding-left: 11.5rem;
 }
-.wrapper section:nth-child(2) {
+.navWrapper section:nth-child(2) {
   gap: 0.5rem;
   padding-right: 2.5rem;
 }/*# sourceMappingURL=navbar.module.css.map */
