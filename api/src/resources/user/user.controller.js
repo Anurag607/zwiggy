@@ -6,8 +6,7 @@ const service = require('./user.service');
 
 const registerUser = async (req, res) => {
   try {
-    const {name, phone_number, email, user_type} = req.body;
-    var { password } = req.body;
+    const {name, password, phone_number, email, user_type} = req.body;
 
     if(!name || !password || !email || !user_type) {
       res.status(400).send({message: "Some inputs are missing"});
@@ -23,7 +22,7 @@ const registerUser = async (req, res) => {
       return res.status(409).send({message: "User already exists"});
     }
 
-    password = await bcrypt.hash(password, 10);
+    req.body["password"] = await bcrypt.hash(password, 10);
 
     newUserId = await service.createUser(req.body);
 
