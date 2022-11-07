@@ -40,7 +40,7 @@ const registerUser = async (req, res) => {
     newUser = await service.getUserById(newUserId);
 
     if(user_type == "customer") {
-      const cust = await service.createCustomer(newUserId, req.body["address"]);
+      await service.createCustomer(newUserId, req.body["address"]);
       newUser[0]["customer"] = await service.getCustomerById(newUserId);
     }
     else if(user_type == "delivery man") {
@@ -66,8 +66,6 @@ const loginUser = async (req, res) => {
     }
 
     let user = await service.getUserByEmail(email);
-
-    console.log(user[0].password);
 
     if(user.length==0 || !(await bcrypt.compare(password, user[0].password))) {
       res.status(400).send({message: "Invalid credentials"});
