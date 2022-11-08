@@ -12,7 +12,7 @@ const NavBar = () => {
                 <Link to='/home' className={styles.logoText}>wiggy</Link>
             </section>
             <section>
-                <Link to='/signup' className={styles.login}>Login</Link>
+                <Link to='/login' className={styles.login}>Login</Link>
                 <Link to= '/cart' className={styles.cart} />
             </section>
         </div>

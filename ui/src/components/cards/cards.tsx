@@ -8,10 +8,10 @@ const placeholder = {
     price: 300
 }
 
-const RestaurantCard:React.FC<{key?:number, heading?: string, content?:string, price?: number}> = (props) => {
+const RestaurantCard:React.FC<{key?:number, heading?: string, content?:string, price?: number, image?: string}> = (props) => {
     return (
         <div className={styles.RestaurantCardWrapper}>
-            <section className={styles.img} />
+            <section className={styles.img} style={{backgroundImage: `url(${props.image ? props.image : '/pizza.jpg'})`}} />
             <section className={styles.content}>
                 <h3>{props.heading}</h3>
                 <p>{props.content}</p>
@@ -28,10 +28,10 @@ const RestaurantCard:React.FC<{key?:number, heading?: string, content?:string, p
     )
 }
 
-const FoodCard:React.FC<{key?:number, heading?: string, content?:string, price?: number}> = (props) => {
+const FoodCard:React.FC<{key?:number, heading?: string, content?:string, price?: number, image?: string}> = (props) => {
     return (
         <div className={styles.FoodCardWrapper}>
-            <section className={styles.img} />
+            <div className={styles.img} style={{backgroundImage: `url(${props.image ? props.image : '/kheer.jpg'})`}} />
             <section className={styles.content}>
                 <h3>{props.heading}</h3>
                 <p>{props.content}</p>
@@ -47,10 +47,10 @@ const FoodCard:React.FC<{key?:number, heading?: string, content?:string, price?:
     )
 }
 
-const FeaturesCards:React.FC<{key?:number, heading?: string, content?:string, price?: number}> = (props) => {
+const FeaturesCards:React.FC<{key?:number, heading?: string, content?:string, price?: number, image?: string}> = (props) => {
     return (
         <div className={styles.FeaturesCardWrapper}>
-            <section className={styles.img} />
+            <section className={styles.img} style={{backgroundImage: `url(${props.image ? props.image : '/bg1.jpg'})`}} />
             <section className={styles.content}>
                 <h3>{props.heading}</h3>
                 <p>{props.content}</p>
@@ -59,18 +59,18 @@ const FeaturesCards:React.FC<{key?:number, heading?: string, content?:string, pr
     )
 }
 
-const CardRenderer:React.FC<{type?:string, key?:number, heading?: string, content?:string, price?: number}> = (props) => {
+const CardRenderer:React.FC<{type?:string, key?:number, heading?: string, content?:string, price?: number, image?: string}> = (props) => {
     switch(props.type) {
         case 'Features' : {
-            return <FeaturesCards key={props.key} heading={props.heading} content={props.content} />
+            return <FeaturesCards key={props.key} heading={props.heading} content={props.content} image={props.image} />
             break
         }
         case 'restaurant' : {
-            return <RestaurantCard key={props.key} heading={props.heading} content={props.content} price={props.price} />
+            return <RestaurantCard key={props.key} heading={props.heading} content={props.content} price={props.price} image={props.image} />
             break
         }
         case 'food' : {
-            return <FoodCard key={props.key} heading={props.heading} content={props.content} price={props.price} />
+            return <FoodCard key={props.key} heading={props.heading} content={props.content} price={props.price} image={props.image} />
             break
         }
         default : {
