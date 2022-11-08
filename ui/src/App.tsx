@@ -49,8 +49,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Default count={count} handleclick = {HandleClick} />} />
-        <Route path='/home' element={<Home />} />
+        {/* <Route path='/' element={<Default count={count} handleclick = {HandleClick} />} /> */}
+        <Route path='/' element={<Home />} />
         <Route path='/filter' element={<Filter />} />
         <Route path='/card' element={<Cards />} />
         <Route path='/results' element={<SearchResult />} />

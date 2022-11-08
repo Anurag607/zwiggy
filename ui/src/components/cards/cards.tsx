@@ -8,10 +8,10 @@ const placeholder = {
     price: 300
 }
 
-const RestaurantCard:React.FC<{key?:number, heading?: string, content?:string, price?: number, image?: string}> = (props) => {
+const RestaurantCard:React.FC<{heading?: string, content?:string, price?: number, image?: string}> = (props) => {
     return (
         <div className={styles.RestaurantCardWrapper}>
-            <section className={styles.img} style={{backgroundImage: `url(${props.image ? props.image : '/pizza.jpg'})`}} />
+            <section className={styles.img} style={{backgroundImage: `url(${props.image ? props.image : '/table.jpg'})`}} />
             <section className={styles.content}>
                 <h3>{props.heading}</h3>
                 <p>{props.content}</p>
@@ -28,7 +28,7 @@ const RestaurantCard:React.FC<{key?:number, heading?: string, content?:string, p
     )
 }
 
-const FoodCard:React.FC<{key?:number, heading?: string, content?:string, price?: number, image?: string}> = (props) => {
+const FoodCard:React.FC<{heading?: string, content?:string, price?: number, image?: string}> = (props) => {
     return (
         <div className={styles.FoodCardWrapper}>
             <div className={styles.img} style={{backgroundImage: `url(${props.image ? props.image : '/kheer.jpg'})`}} />
@@ -47,7 +47,7 @@ const FoodCard:React.FC<{key?:number, heading?: string, content?:string, price?:
     )
 }
 
-const FeaturesCards:React.FC<{key?:number, heading?: string, content?:string, price?: number, image?: string}> = (props) => {
+const FeaturesCards:React.FC<{heading?: string, content?:string, price?: number, image?: string}> = (props) => {
     return (
         <div className={styles.FeaturesCardWrapper}>
             <section className={styles.img} style={{backgroundImage: `url(${props.image ? props.image : '/bg1.jpg'})`}} />
@@ -59,18 +59,18 @@ const FeaturesCards:React.FC<{key?:number, heading?: string, content?:string, pr
     )
 }
 
-const CardRenderer:React.FC<{type?:string, key?:number, heading?: string, content?:string, price?: number, image?: string}> = (props) => {
+const CardRenderer:React.FC<{type?:string, heading?: string, content?:string, price?: number, image?: string}> = (props) => {
     switch(props.type) {
         case 'Features' : {
-            return <FeaturesCards key={props.key} heading={props.heading} content={props.content} image={props.image} />
+            return <FeaturesCards heading={props.heading} content={props.content} image={props.image} />
             break
         }
         case 'restaurant' : {
-            return <RestaurantCard key={props.key} heading={props.heading} content={props.content} price={props.price} image={props.image} />
+            return <RestaurantCard heading={props.heading} content={props.content} price={props.price} image={props.image} />
             break
         }
         case 'food' : {
-            return <FoodCard key={props.key} heading={props.heading} content={props.content} price={props.price} image={props.image} />
+            return <FoodCard heading={props.heading} content={props.content} price={props.price} image={props.image} />
             break
         }
         default : {
@@ -79,8 +79,8 @@ const CardRenderer:React.FC<{type?:string, key?:number, heading?: string, conten
     }
 }
 
-const Cards:React.FC<{type?:string, key?:number, heading?: string, content?:string, price?: number}> = (props) => {
-    return <CardRenderer type={(props.type !== '') ? props.type : ''} key={props.key ? props.key : 0} heading={(props.heading !== '') ? props.heading : placeholder.heading} content={(props.content !== '') ? props.content : placeholder.content} price={(props.price !== 0) ? props.price : placeholder.price} />
+const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: number}> = (props) => {
+    return <CardRenderer type={(props.type !== '') ? props.type : ''} heading={(props.heading !== '') ? props.heading : placeholder.heading} content={(props.content !== '') ? props.content : placeholder.content} price={(props.price !== 0) ? props.price : placeholder.price} />
 }
 
 export default Cards

@@ -10,6 +10,27 @@
     gap: $gap;
 }
 
+@keyframes shake {
+    0% {
+        transform: translate(0);
+      }
+      20% {
+        transform: translate(0.5rem);
+      }
+      40% {
+        transform: translate(-0.5rem);
+      }
+      60% {
+        transform: translate(0.5rem);
+      }
+      80% {
+        transform: translate(-0.5rem);
+      }
+      100% {
+        transform: translate(0);
+      }
+}
+
 .loginWrapper {
     width: 100vw;
     height: 100vh;
@@ -47,6 +68,7 @@
                 font-size: 0.75rem;
                 border-radius: 0.25rem;
                 cursor: default;
+                animation: shake 0.5s linear;
             }
             span {
                 @include flex($dir: row, $gap: 1rem);

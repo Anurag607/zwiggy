@@ -1,20 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { token } from 'morgan'
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './signup.module.css'
 
 interface SignupForm extends HTMLFormControlsCollection {
-    fname: string,
+    name: string,
     email: string,
-    username: string,
-    password: string
+    password: string,
+    cnfrmPass: string
 }
 
 interface SignupFormEl extends HTMLFormElement {
     readonly elements : SignupForm
 }
 
-type template = { fname: string, email: string, username: string, password: string }
+type template = { name: string, email: string, password: string, cnfrmPass: string, user_type: string }
 
 export default function Signup() {
 
@@ -28,26 +29,20 @@ export default function Signup() {
     }
 
     const [signupdet, Setsignupdet] = React.useState<template>({
-        fname : "",
-        username : "",
+        name : "",
+        password : "",
         email : "",
-        password : ""
+        user_type : "customer",
+        cnfrmPass : ""
     })
 
     const HandleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
         let target = e.currentTarget
         switch(target.name) {
-            case 'fname' : {
+            case 'name' : {
                 Setsignupdet({
                     ...signupdet,
-                    fname : target.value
-                })
-                break
-            }
-            case 'username' : {
-                Setsignupdet({
-                    ...signupdet,
-                    username : target.value
+                    name : target.value
                 })
                 break
             }
@@ -65,6 +60,13 @@ export default function Signup() {
                 })
                 break
             }
+            case 'cnfrmPass' : {
+                Setsignupdet({
+                    ...signupdet,
+                    cnfrmPass : target.value
+                })
+                break
+            }
             default : {
                 Setsignupdet({
                     ...signupdet,
@@ -76,28 +78,38 @@ export default function Signup() {
 
     const HandleSubmit = React.useCallback((e: React.FormEvent<SignupFormEl>) => {
         e.preventDefault()
-        fetch('/api/users/signup' ,{
-            method : 'POST',
-            mode : 'cors',
-            headers : { 'Content-type' : 'application/json' },
-            body : JSON.stringify(signupdet)
-        })
-        .then((response)=> response.text())
-        .then(resMessage => {
-            console.log(resMessage)
-            if(resMessage === 'success') {
-                styling.warning.current!.style.display = 'none'
-                styling.email.current!.style.border = 'transparent'
-                styling.heading.current!.style.marginBottom = '1rem'
-                styling.tologin.current!.style.marginTop = '4rem'
-                navigate(`/home`)
-            } else {
-                styling.warning.current!.style.display = 'block'
-                styling.email.current!.style.border = '0.05rem solid red'
-                styling.heading.current!.style.marginBottom = '0.5rem'
-                styling.tologin.current!.style.marginTop = '2rem'
-            }
-        })
+        let status   = 200
+        if(signupdet.password == signupdet.cnfrmPass) {
+            fetch('http://localhost:3000/api/user/register', {
+                method : 'POST',
+                mode : 'cors',
+                headers : { 'Content-type' : 'application/json' },
+                body : JSON.stringify(signupdet)
+            })
+            .then((response)=> {
+                status = response.status
+                return response.json()
+            })
+            .then(resMessage => {
+                console.log(resMessage)
+                if(resMessage[0].token) {
+                    sessionStorage.setItem("currentLoggedIn", signupdet.name)
+                    styling.warning.current!.style.display = 'none'
+                    styling.email.current!.style.border = 'transparent'
+                    styling.heading.current!.style.marginBottom = '1rem'
+                    styling.tologin.current!.style.marginTop = '4rem'
+                    navigate(`/`)
+                } else {
+                    styling.warning.current!.style.display = 'block'
+                    styling.warning.current!.style.animation = 'shake 1s infinite linear'
+                    styling.email.current!.style.border = '0.05rem solid red'
+                    styling.heading.current!.style.marginBottom = '0.5rem'
+                    styling.tologin.current!.style.marginTop = '2rem'
+                }
+            })
+        } else {
+
+        }
     }, [signupdet])
 
     return (
@@ -106,13 +118,13 @@ export default function Signup() {
             <section>
                 <form onSubmit={HandleSubmit}>
                     <h2 ref={styling.heading}>Signup</h2>
-                    <span className={styles.warning} ref={styling.warning}>Email Already Exists</span>
+                    <span className={styles.warning} ref={styling.warning}>Email ID Already Exists</span>
                     <span>
-                        <label htmlFor='fname'>
+                        <label htmlFor='name'>
                             Full Name: 
                             <span className={styles.user}>
                                 <span />
-                                <input value={signupdet.fname} onChange={HandleChange} name='fname' id='fname' type="text" placeholder='Enter your Full Name'/>
+                                <input value={signupdet.name} onChange={HandleChange} name='name' id='name' type="text" placeholder='Enter your Full Name'/>
                             </span>
                         </label>
                     </span>
@@ -121,7 +133,7 @@ export default function Signup() {
                             Email: 
                             <span className={styles.signupemail}>
                                 <span />
-                                <input ref={styling.email} value={signupdet.email} onChange={HandleChange} name='email' id='email' type="email" placeholder='Enter your Email'/>
+                                <input ref={styling.email} value={signupdet.email} onChange={HandleChange} name='email' id='email' type="email" placeholder='Enter your Email'  autoComplete='new-email'/>
                             </span>
                         </label>
                     </span>
@@ -130,16 +142,16 @@ export default function Signup() {
                             Password: 
                             <span className={styles.pass}>
                                 <span />
-                                <input value={signupdet.password} onChange={HandleChange} name='password' id='password' type="password" placeholder='Enter your Password' />
+                                <input value={signupdet.password} onChange={HandleChange} name='password' id='password' type="password" placeholder='Enter your Password' autoComplete='new-password' />
                             </span>
                         </label>
                     </span>
                     <span>
-                        <label htmlFor='confirmPassword'>
+                        <label htmlFor='cnfrmPass'>
                             Confirm Password: 
-                            <span className={styles.cnfrmpass}>
+                            <span className={styles.pass}>
                                 <span />
-                                <input value={signupdet.password} onChange={HandleChange} name='password' id='confirmPassword' type="password" placeholder='Confirm Password' />
+                                <input value={signupdet.cnfrmPass} onChange={HandleChange} name='cnfrmPass' id='cnfrmPass' type="password" placeholder='Confirm Password' autoComplete='new-password' />
                             </span>
                         </label>
                     </span>
@@ -154,7 +166,7 @@ export default function Signup() {
                     </section> */}
                     <span className={styles.tologin} ref={styling.tologin} >
                         Already have an account?
-                        <Link to='/login'><a className={styles.loginLinks}>Login Here</a></Link>
+                        <Link to='/login' className={styles.loginLinks}>Login Here</Link>
                     </span>
                 </form>
             </section>

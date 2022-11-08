@@ -60,26 +60,36 @@ export default function Login() {
 
     const HandleSubmit = useCallback((e : React.FormEvent<LoginFormEl>) => {
         e.preventDefault();
-        fetch('/api/users/login/', {
+        let status = 200
+        // styling.warning.current!.style.animation = 'none'
+        fetch('http://localhost:3000/api/user/login', {
             method : 'POST',
             mode : 'cors',
             headers : {'Content-type' : 'application/json'},
             body : JSON.stringify(logindet),
         })
-        .then(response => response.text())
+        .then(response => {
+            status = response.status
+            return response.json()
+        })
         .then(resMessage => {
             console.log(resMessage)
-            if(resMessage === 'success') {
+            if(status !== 200) {
+                styling.warning.current!.style.display = 'block'
+                // styling.warning.current!.style.animation = 'shake 0.5s linear'
+                styling.email.current!.style.border = '0.05rem solid red'
+                styling.pass.current!.style.border = '0.05rem solid red'
+                styling.toSignup.current!.style.marginTop = '3.5rem'
+                // setTimeout(() => {
+                //     styling.warning.current!.style.animation = 'none'
+                // }, 700)
+            } else {
+                sessionStorage.setItem("currentLoggedIn", resMessage[0].name)
                 styling.warning.current!.style.display = 'none'
                 styling.email.current!.style.border = 'transparent'
                 styling.pass.current!.style.border = 'transparent'
                 styling.toSignup.current!.style.marginTop = '5rem'
-                navigate(`/home`)
-            } else {
-                styling.warning.current!.style.display = 'block'
-                styling.email.current!.style.border = '0.05rem solid red'
-                styling.pass.current!.style.border = '0.05rem solid red'
-                styling.toSignup.current!.style.marginTop = '3.5rem'
+                navigate(`/`)
             }
         })
     },[logindet])
@@ -95,7 +105,7 @@ export default function Login() {
                             Email ID: 
                             <span className={styles.user}>
                                 <span />
-                                <input name='email' ref={styling.email} id='email' value={logindet.email} onChange={HandleChange} type="email" placeholder='Enter your Email ID'/>
+                                <input name='email' ref={styling.email} id='email' value={logindet.email} onChange={HandleChange} type="email" placeholder='Enter your Email ID' autoComplete='new-email'/>
                             </span>
                         </label>
                     </span>
@@ -104,11 +114,11 @@ export default function Login() {
                             Password: 
                             <span className={styles.pass}>
                                 <span />
-                                <input name='password' ref={styling.pass} id='password' value={logindet.password} onChange={HandleChange} type="password" placeholder='Enter your Password' />
+                                <input name='password' ref={styling.pass} id='password' value={logindet.password} onChange={HandleChange} type="password" placeholder='Enter your Password' autoComplete='new-password' />
                             </span>
                             <span>
                                 Forgot your Password?
-                                <Link to='/passReset'><a className={styles.loginLinks}>Reset Here</a></Link>
+                                <Link to='/passReset' className={styles.loginLinks}>Reset Here</Link>
                             </span>
                         </label>
                     </span>
@@ -123,7 +133,7 @@ export default function Login() {
                     </section> */}
                     <span className={styles.toSignup} ref={styling.toSignup}>
                         Dont have an account?
-                        <Link to='/signup'><a className={styles.loginLinks}>Sign Up</a></Link>
+                        <Link to='/signup' className={styles.loginLinks}>Sign Up</Link>
                     </span>
                 </form>
             </div>
