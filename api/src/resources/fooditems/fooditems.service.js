@@ -7,5 +7,12 @@ const getAllFoodItems = (name) => {
       })
     })
   }
-
-  module.exports={getAllFoodItems }
+const getFoodItembyCategory = (id) => {
+  return new Promise((resolve,reject) =>{
+    pool.query(`SELECT * FROM fooditem where cat_id =${id} ;`,(err,res,fields)=>{
+      if(err) throw err;
+      resolve(res);
+    })
+  })
+}
+  module.exports={ getAllFoodItems,getFoodItembyCategory }

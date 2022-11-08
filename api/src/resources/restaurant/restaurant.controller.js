@@ -1,4 +1,7 @@
 const restaurantService = require('./restaurant.service');
+const categoryService=require('../category/category.service');
+const fooditemService=require('../fooditems/fooditems.service');
+const { json } = require('body-parser');
 
 const getAllRestaurants = async (req, res) => {
   const data = await restaurantService.getAllRestaurants();
@@ -23,7 +26,21 @@ const createRestaurant = async (req, res) => {
   res.status(201).json(JSON.parse(JSON.stringify(data)));
 }
 
+const getRestaurantMenu = async (req,res)=>{
+  const menu = {};
+  const data= await categoryService.getAllCategories(req.params['id']);
+  // console.log(data);
+  for(const i in data){
+    const { name, id } = data[i];
+    const fooditem=await fooditemService.getFoodItembyCategory(id);
+    menu[name] = fooditem;
+  }
+
+  res.status(200).json(JSON.parse(JSON.stringify(menu)));
+}
+
 module.exports = {
   getAllRestaurants,
-  createRestaurant
+  createRestaurant,
+  getRestaurantMenu
 }
