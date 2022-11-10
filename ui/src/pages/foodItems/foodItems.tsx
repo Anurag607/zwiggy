@@ -18,7 +18,6 @@ type responseTemplate1 = Array<Array<Array<{id:number, item_name:string, cat_id:
 type responseTemplate2 = [string, {id: number; item_name: string; cat_id: number; price: number; }[][]][]
 
 const CardGen:React.FC<{heading?:string, content?:string, price?:number, data?:responseTemplate2}> = (props) => {
-    // console.log(props.data)
     return (
         <section className={styles['results']}>
             {(props.data)?.map((el,i) => {
@@ -72,6 +71,9 @@ const FoodItems:React.FC<{loc?: string, address?: string, name?: string, star?: 
 
     const location = useLocation()
     let restId = location.pathname.trim().split('/')[2]
+    React.useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [restId])
     
     const [Menu,SetMenu] = React.useState<responseTemplate1>([[[{
         id: 0,

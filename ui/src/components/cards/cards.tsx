@@ -38,6 +38,7 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
         switch(target.id) { 
             case 'explore' : {
                 // HandleRequest(id.current)
+                navigate(`/restaurants/${id.current}`)
                 break
             }
         }
