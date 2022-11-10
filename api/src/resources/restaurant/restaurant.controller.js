@@ -38,9 +38,15 @@ const getRestaurantMenu = async (req,res)=>{
 
   res.status(200).json(JSON.parse(JSON.stringify(menu)));
 }
+const getRestaurantsByCity = async (req, res) => {
+  const city = req.params['city'].toLowerCase()
+  const data = await restaurantService.getRestaurantsByCity(city);
+  res.status(200).json(JSON.parse(JSON.stringify(data)));
+}
 
 module.exports = {
   getAllRestaurants,
   createRestaurant,
-  getRestaurantMenu
+  getRestaurantMenu,
+  getRestaurantsByCity
 }

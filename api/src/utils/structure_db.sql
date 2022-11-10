@@ -2,7 +2,8 @@ CREATE TABLE restaurant (
     id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name VARCHAR(128) NOT NULL,
     address VARCHAR(256),
-    rating FLOAT(3, 2)
+    rating FLOAT(3, 2),
+    city VARCHAR(256) NOT NULL
 );
 
 CREATE TABLE user (
@@ -36,7 +37,7 @@ CREATE TABLE delivery_man (
 CREATE TABLE fooditem (
     id INT(5) NOT NULL PRIMARY KEY,
     item_name VARCHAR(30) ,
-    price FLOAT 
+    price FLOAT
  );
  
 CREATE TABLE category (
@@ -44,4 +45,5 @@ CREATE TABLE category (
     rest_id INTEGER NOT NULL,
     name VARCHAR(32) NOT NULL,FOREIGN KEY (rest_id) REFERENCES restaurant(id)
  );
+
 

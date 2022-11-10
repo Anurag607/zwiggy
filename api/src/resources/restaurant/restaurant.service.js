@@ -33,9 +33,20 @@ const getOneRestaurant = (id) => {
       })
   })
 }
+const getRestaurantsByCity = (city) => {
+  return new Promise((resolve,reject) => {
+    pool.query(`
+    SELECT * FROM restaurant where city LIKE '${city}'` ,
+    (err,res,fields) => {
+      if(err) throw err;
+      resolve(res);
+    })
+  })
+}
 
 module.exports = {
   getAllRestaurants,
   createRestaurant,
-  getOneRestaurant
+  getOneRestaurant,
+  getRestaurantsByCity
 }

@@ -8,4 +8,7 @@ router.route('/')
   .post(controllers.createRestaurant);
 router.route('/:id/menu/')
   .get(controllers.getRestaurantMenu);
+router.route('/:city')
+  .get(controllers.getRestaurantsByCity);
+  
 module.exports = router;
