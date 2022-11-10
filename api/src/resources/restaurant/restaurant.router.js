@@ -12,5 +12,7 @@ router.route('/:id/menu')
 
 router.route('/:id')
   .get(controllers.getRestaurants)
+router.route('/:city')
+  .get(controllers.getRestaurantsByCity);
   
 module.exports = router;
