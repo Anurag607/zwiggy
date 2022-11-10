@@ -1,11 +1,11 @@
-INSERT INTO category (rest_id,name) VALUES (1,'category1'),(1,'category2'),(1,'category3'),
-(2,'category1'),(2,'category2'),(2,'category3'),
-(3,'category1'),(3,'category2'),(3,'category3'),
-(4,'category1'),(4,'category2'),(4,'category3'),
-(5,'category1'),(5,'category2'),(5,'category3'),
-(6,'category1'),(6,'category2'),(6,'category3'),
-(7,'category1'),(7,'category2'),(7,'category3'),
-(8,'category1'),(8,'category2'),(8,'category3'),
-(9,'category1'),(9,'category2'),(9,'category3'),
-(10,'category1'),(10,'category2'),(10,'category3');
+INSERT INTO category (rest_id,name) VALUES (1,'category 1'),(1,'category 2'),(1,'category 3'),
+(2,'category 1'),(2,'category 2'),(2,'category 3'),
+(3,'category 1'),(3,'category 2'),(3,'category 3'),
+(4,'category 1'),(4,'category 2'),(4,'category 3'),
+(5,'category 1'),(5,'category 2'),(5,'category 3'),
+(6,'category 1'),(6,'category 2'),(6,'category 3'),
+(7,'category 1'),(7,'category 2'),(7,'category 3'),
+(8,'category 1'),(8,'category 2'),(8,'category 3'),
+(9,'category 1'),(9,'category 2'),(9,'category 3'),
+(10,'category 1'),(10,'category 2'),(10,'category 3');
 
