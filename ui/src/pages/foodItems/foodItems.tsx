@@ -25,16 +25,9 @@ const CardGen:React.FC<{heading?:string, content?:string, price?:number, data?:r
                 return (
                     <div key={i} className={styles['categories']}>
                         {el[1].map((ele,j) => {
-                            // console.log(ele.hasOwnProperty('item_name'))
-                            // console.log(ele.item_name)
                             return (
                                 // <Cards type='food' key={j} heading={''} content={''} price={0}/>
                                 <Cards type='food' key={j} heading={ele.item_name} content={props.content} price={ele.price}/>
-                                // <div key={j}>
-                                //     {ele.map((items,k) => {
-                                //         return <Cards type='food' key={k} heading={items.item_name} content={props.content} price={items.price}/>
-                                //     })}
-                                // </div>
                             )
                         })}
                     </div>
@@ -109,7 +102,7 @@ const FoodItems:React.FC<{loc?: string, address?: string, name?: string, star?: 
     }, [restId])
     
     let categories:string[] = Object.keys(Menu)
-    let fooditems:responseTemplate1 = Object.entries(menu)
+    // let fooditems:responseTemplate1 = Object.entries(menu)
     const items = Object.entries(Menu)
     let Fooditems:responseTemplate2 = Object.entries(Menu)
     return (

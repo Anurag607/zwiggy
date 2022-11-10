@@ -37,7 +37,7 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
         let target:any = event.currentTarget
         switch(target.id) { 
             case 'explore' : {
-                HandleRequest(id.current)
+                // HandleRequest(id.current)
                 break
             }
         }
