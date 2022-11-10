@@ -5,7 +5,8 @@ import styles from './home.module.css'
 import NavBar from '../../components/navbar/navbar'
 import Footer from '../../components/footer/footer'
 import Cards from '../../components/cards/cards'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+
 
 const CardGen:React.FC<{heading?:string, content?:string}> = (props) => {
     let row = new Array(7).fill(1)
@@ -42,6 +43,8 @@ const FeatureGen:React.FC<{heading:string, content:string}> = (props) => {
 }
 
 const Home = () => {
+
+    const navigate = useNavigate()
 
     const [search, Setsearch] = React.useState('')
     const [feedback, Setfeedback] = React.useState<{email: string, comment: string}>({
@@ -82,6 +85,7 @@ const Home = () => {
 
     const HandleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+        navigate('/restaurants')
     }
 
     return (
@@ -92,9 +96,7 @@ const Home = () => {
                 <div className={styles['endorsement2']}>consectetur adipiscing elit sed do</div>
                 <form onSubmit={HandleSubmit} className={styles.search}>
                     <input type='search' name='search' id='search' value={search} onChange={HandleChange} className={styles['searchBar']}  placeholder='Search your City here' />
-                    <Link to='/results'>
-                        <input type='submit' name='searchSubmit' id='searchsubmit' value='Search' className={styles['searchSubmit']} />
-                    </Link>
+                    <input type='submit' name='searchSubmit' id='searchsubmit' value='Search' className={styles['searchSubmit']} />
                 </form>
                 <div className={styles['endorsement1']}></div>
             </section>

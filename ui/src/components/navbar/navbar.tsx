@@ -9,7 +9,8 @@ const NavBar = () => {
     return (
         <div className={styles["navWrapper"]}>
             <section>
-                <Link to='/' className={styles.logoImg} />
+                {/* <Link to='/' className={styles.logoImg} /> */}
+                <Link to='/' className={styles.logoImgTxt}>Z</Link>
                 <Link to='/' className={styles.logoText}>wiggy</Link>
             </section>
             <section>

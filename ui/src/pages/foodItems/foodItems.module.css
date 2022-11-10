@@ -107,21 +107,54 @@
   justify-content: center;
   align-items: center;
   gap: 0rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: auto;
+  width: 100vw;
+  position: relative;
 }
 .fooditemWrapper .content .filter {
   width: 25vw;
-  height: 780vh;
+  height: 87vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 0rem;
-  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-end;
   border-right: 0.05rem solid #37474f;
+  padding-top: 2.5rem;
+  position: relative;
+}
+.fooditemWrapper .content .filter .filterForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  justify-content: flex-start;
+  align-items: flex-end;
+  width: 85%;
+}
+.fooditemWrapper .content .filter .filterForm span {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  padding: 0.5rem 1rem 0.5rem 5rem;
+  font-family: 2rem;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: all 0.5s;
+  background-color: #fff;
+  color: #000;
+}
+.fooditemWrapper .content .filter .filterForm:hover span {
+  background-color: #ff5c5f;
+  color: #fff;
 }
 .fooditemWrapper .content .results {
-  padding-block: 5rem;
   width: 75vw;
+  height: 87vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -129,7 +162,16 @@
   gap: 2.5rem;
   justify-content: flex-start;
   align-items: flex-start;
-  padding-top: 0rem;
-  padding-left: 5rem;
-  flex-wrap: wrap;
+  margin-top: 2.5rem;
+  padding: 0rem 0 0rem 5rem;
+  overflow: scroll;
+}
+.fooditemWrapper .content .results .categories {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  justify-content: flex-start;
+  align-items: flex-start;
 }/*# sourceMappingURL=foodItems.module.css.map */

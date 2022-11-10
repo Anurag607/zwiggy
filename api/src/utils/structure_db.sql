@@ -35,9 +35,11 @@ CREATE TABLE delivery_man (
 );
 
 CREATE TABLE fooditem (
-    id INT(5) NOT NULL PRIMARY KEY,
+    id INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
     item_name VARCHAR(30) ,
-    price FLOAT
+    cat_id INTEGER NOT NULL,
+    price FLOAT,
+    FOREIGN KEY (cat_id) REFERENCES category(id) 
  );
  
 CREATE TABLE category (
