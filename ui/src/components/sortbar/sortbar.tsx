@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import styles from './sortbar.module.css'
 import sortbar from '../../scrpits/sortbar.mjs'
 
-const SortBar = () => {
+const SortBar:React.FC<{resNum : number}> = (props) => {
 
     React.useEffect(() => {
         sortbar()
@@ -14,7 +14,8 @@ const SortBar = () => {
     return (
         <div className={styles["sortWrapper"]} id='sortbar'>
             <div className={styles["resultCount"]}>
-                489 Results
+                {(props.resNum < 10) ? `00${props.resNum}` :
+                ((props.resNum < 100 && props.resNum >= 10) ? `0${props.resNum}` : props.resNum)} Results
                 <div className={styles.overlay} id='overlayCnt' />
             </div>
             <section className={styles["params"]}>

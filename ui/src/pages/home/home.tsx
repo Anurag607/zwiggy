@@ -46,17 +46,22 @@ const Home = () => {
 
     const navigate = useNavigate()
 
-    const [search, Setsearch] = React.useState('')
+    const [city, Setcity] = React.useState('')
     const [feedback, Setfeedback] = React.useState<{email: string, comment: string}>({
         email : '',
         comment : ''
     })
 
+    const styling = {
+        city: React.useRef<HTMLInputElement>(null),
+        warning: React.useRef<HTMLSpanElement>(null)
+    }
+
     const HandleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) => {
         let target = event.currentTarget
         switch(target.name) {
-            case 'search' : {
-                Setsearch(target.value)
+            case 'city' : {
+                Setcity(target.value)
                 break
             }
             case 'email' : {
@@ -74,7 +79,7 @@ const Home = () => {
                 break
             }
             default : {
-                Setsearch(search)
+                Setcity(city)
                 Setfeedback({
                     ...feedback
                 })
@@ -85,7 +90,16 @@ const Home = () => {
 
     const HandleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        navigate('/restaurants')
+        const target = event.currentTarget
+        if(city.length > 0) {
+            styling.city.current!.style.border = 'transparent'
+            styling.warning.current!.style.display = 'none'
+            navigate(`/restaurants/${city}`)
+        }
+        else {
+            styling.city.current!.style.border = '0.05rem solid red'
+            styling.warning.current!.style.display = 'block'
+        }
     }
 
     return (
@@ -94,8 +108,9 @@ const Home = () => {
             <section className ={`${styles['hero']} ${styles['main']}`}>
                 <div className={styles['endorsement1']}>Lorem ipsum dolor sit amet</div>
                 <div className={styles['endorsement2']}>consectetur adipiscing elit sed do</div>
+                <span className={styles.warning} ref={styling.warning}>Invalid City Name</span>
                 <form onSubmit={HandleSubmit} className={styles.search}>
-                    <input type='search' name='search' id='search' value={search} onChange={HandleChange} className={styles['searchBar']}  placeholder='Search your City here' />
+                    <input type='text' ref={styling.city} name='city' id='city' value={city} onChange={HandleChange} className={styles['searchBar']}  placeholder='Search your City here' />
                     <input type='submit' name='searchSubmit' id='searchsubmit' value='Search' className={styles['searchSubmit']} />
                 </form>
                 <div className={styles['endorsement1']}></div>

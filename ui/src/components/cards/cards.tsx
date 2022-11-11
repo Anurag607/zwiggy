@@ -8,37 +8,16 @@ const placeholder = {
     price: 300
 }
 
-let menu:Object = {}
-
-const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: number}> = (props) => {
+const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: number, image?: string, id?: number, city ?: string}> = (props) => {
 
     const id = React.useRef<number>(0)
     const navigate = useNavigate()
-
-    const HandleRequest = React.useCallback((props: number | MutableRefObject<number>) => {
-        fetch(`http://localhost:3000/api/restaurants/${props}/menu`, {
-            method: 'GET',
-            mode: "cors",
-            headers: { 'Content-type' : 'application/json', 'token' : `` }
-        })
-        .then(response => {
-            return response.json()
-        })
-        .then(resMessage => {
-            menu = resMessage
-            navigate(`/restaurants/${id.current}`)
-        })
-        .catch((err) => {
-            console.error(err.message)
-        })
-    }, [id])
     
-    const Handleclick = React.useCallback((event:React.MouseEvent<HTMLSpanElement>) => {
+    const Handleclick:React.MouseEventHandler<HTMLSpanElement> = React.useCallback((event:React.MouseEvent) => {
         let target:any = event.currentTarget
         switch(target.id) { 
             case 'explore' : {
-                // HandleRequest(id.current)
-                navigate(`/restaurants/${id.current}`)
+                navigate(`/restaurant/${props.city}/${props.id}`)
                 break
             }
         }
@@ -53,7 +32,7 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
                     <p>{props.content}</p>
                     <div>
                         <span className={styles.addToCart} id="explore" onClick={(event:React.MouseEvent<HTMLSpanElement>) => {
-                            id.current = 1
+                            id.current = props.id! | 1
                             Handleclick(event)
                         }}>
                             Explore
@@ -120,4 +99,3 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
 }
 
 export default Cards
-export { menu }

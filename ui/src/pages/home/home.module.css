@@ -47,6 +47,25 @@
   border-radius: 1rem;
   cursor: default;
 }
+.homeWrapper .hero .warning {
+  position: absolute;
+  width: auto;
+  height: auto;
+  left: 13.75%;
+  top: 67.5%;
+  display: none;
+  border: transparent;
+  outline: none;
+  color: red;
+  width: auto;
+  background-color: #fff;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+  cursor: default;
+  -webkit-animation: shake 0.5s linear;
+          animation: shake 0.5s linear;
+}
 .homeWrapper .hero .search {
   position: absolute;
   width: auto;

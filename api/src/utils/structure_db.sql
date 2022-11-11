@@ -47,5 +47,3 @@ CREATE TABLE category (
     rest_id INTEGER NOT NULL,
     name VARCHAR(32) NOT NULL,FOREIGN KEY (rest_id) REFERENCES restaurant(id)
  );
-
-

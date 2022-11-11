@@ -4,18 +4,11 @@ import React from 'react'
 import NavBar from '../../components/navbar/navbar'
 import styles from './foodItems.module.css'
 import Footer from '../../components/footer/footer'
-import Cards, { menu } from '../../components/cards/cards'
+import Cards from '../../components/cards/cards'
 import { useNavigate, useLocation } from 'react-router-dom'
 
-let placeholder = [[[{
-    id: 0,
-    item_name: '',
-    cat_id: 0,
-    price:0
-}]]]
-
 type responseTemplate1 = Array<Array<Array<{id:number, item_name:string, cat_id:number, price: number}>>>
-type responseTemplate2 = [string, {id: number; item_name: string; cat_id: number; price: number; }[][]][]
+type responseTemplate2 = [string, {id: number, item_name: string, cat_id: number, price: number }[][]][]
 
 const CardGen:React.FC<{heading?:string, content?:string, price?:number, data?:responseTemplate2}> = (props) => {
     return (
@@ -24,9 +17,9 @@ const CardGen:React.FC<{heading?:string, content?:string, price?:number, data?:r
                 return (
                     <div key={i} className={styles['categories']}>
                         {el[1].map((ele,j) => {
+                            let dish = (ele as any) as {id: number, item_name: string, cat_id: number, price: number }
                             return (
-                                // <Cards type='food' key={j} heading={''} content={''} price={0}/>
-                                <Cards type='food' key={j} heading={ele.item_name} content={props.content} price={ele.price}/>
+                                <Cards type='food' key={j} heading={dish.item_name} content={props.content} price={dish.price}/>
                             )
                         })}
                     </div>
@@ -36,21 +29,9 @@ const CardGen:React.FC<{heading?:string, content?:string, price?:number, data?:r
     )
 }
 
-// const CardGen:React.FC<{heading?:string, content?:string, price?:number, data?:responseTemplate1}> = (props) => {
-//     return (
-//         <section className={styles['results']}>
-//             {(props.data)?.map((el,i) => {
-//                 return (
-//                     <div key={i} className={styles['categories']}>
-//                         {el[1].map((ele,j) => {
-//                             return <Cards type='food' key={j} heading={ele.item_name} content={props.content} price={ele.price}/>
-//                         })}
-//                     </div>
-//                 )
-//             })}
-//         </section>
-//     )
-// }
+const HandleClick:React.MouseEventHandler<HTMLSpanElement> = (event: React.MouseEvent) => {
+    
+}
 
 const Filter:React.FC<{data?:string[]}> = (props) => {
     return (
@@ -58,7 +39,7 @@ const Filter:React.FC<{data?:string[]}> = (props) => {
             {(props.data)?.map((el,i) => {
                 return (
                     <form className={styles.filterForm} key={i}>
-                        <span id='categoryFilter'>{el}</span>
+                        <span id='categoryFilter' onClick={HandleClick}>{el}</span>
                     </form>
                 )
             })
@@ -70,16 +51,13 @@ const Filter:React.FC<{data?:string[]}> = (props) => {
 const FoodItems:React.FC<{loc?: string, address?: string, name?: string, star?: number, rating?: number, restaurantImg?: string}> = (props) => {
 
     const location = useLocation()
-    let restId = location.pathname.trim().split('/')[2]
-    React.useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [restId])
+    let restId = location.pathname.trim().split('/')[3]
     
     const [Menu,SetMenu] = React.useState<responseTemplate1>([[[{
-        id: 0,
+        id: 1,
         item_name: '',
         cat_id: 0,
-        price:0
+        price: 0
     }]]])
 
     const Fetcher = () => {
@@ -101,10 +79,10 @@ const FoodItems:React.FC<{loc?: string, address?: string, name?: string, star?: 
 
     React.useEffect(() => {
         Fetcher()
+        window.scrollTo(0, 0);
     }, [restId])
     
     let categories:string[] = Object.keys(Menu)
-    // let fooditems:responseTemplate1 = Object.entries(menu)
     const items = Object.entries(Menu)
     let Fooditems:responseTemplate2 = Object.entries(Menu)
     return (
