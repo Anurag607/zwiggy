@@ -16,7 +16,7 @@ const registerUser = async (req, res) => {
       return res.status(409).send({message: "Invalid user type"}); 
     }
 
-    const oldUser = await service.getUserByEmail(email);
+    const [oldUser, ] = await service.getUserByEmail(email);
 
     if(oldUser.length != 0) {
       return res.status(409).send({message: "User already exists"});
@@ -25,6 +25,7 @@ const registerUser = async (req, res) => {
     req.body["password"] = await bcrypt.hash(password, 10);
 
     newUserId = await service.createUser(req.body);
+    console.log(newUserId)
 
     const token = jwt.sign(
       {user_id: newUserId, email},
@@ -36,11 +37,11 @@ const registerUser = async (req, res) => {
 
     await service.updateToken(newUserId, token);
 
-    newUser = await service.getUserById(newUserId);
+    [newUser, ] = await service.getUserById(newUserId);
 
     if(user_type == "customer") {
       await service.createCustomer(newUserId, req.body["address"]);
-      newUser[0]["customer"] = await service.getCustomerById(newUserId);
+      [newUser[0]["customer"], ] = await service.getCustomerById(newUserId);
     }
     else if(user_type == "delivery man") {
     }
@@ -50,6 +51,7 @@ const registerUser = async (req, res) => {
       return res.status(409).send({message: "Invalid user type"});
     }
 
+    console.log(newUser)
     res.status(201).json(JSON.parse(JSON.stringify(newUser)));
   } catch(err) {
     console.log(err);
@@ -64,7 +66,9 @@ const loginUser = async (req, res) => {
       res.status(400).send({message: "Email and password are required"});
     }
 
-    let user = await service.getUserByEmail(email);
+    let [user, ] = await service.getUserByEmail(email)
+
+    console.log(user)
 
     if(user.length==0 || !(await bcrypt.compare(password, user[0].password))) {
       res.status(400).send({message: "Invalid credentials"});
