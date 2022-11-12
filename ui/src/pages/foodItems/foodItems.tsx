@@ -10,37 +10,43 @@ import { useNavigate, useLocation } from 'react-router-dom'
 type responseTemplate1 = Array<Array<Array<{id:number, item_name:string, cat_id:number, price: number}>>>
 type responseTemplate2 = [string, {id: number, item_name: string, cat_id: number, price: number }[][]][]
 
-const CardGen:React.FC<{heading?:string, content?:string, price?:number, data?:responseTemplate2}> = (props) => {
+const CardGen:React.FC<{heading?:string, content?:string, price?:number, data?:responseTemplate1}> = (props) => {
+
+    let Fooditems:responseTemplate2 = Object.entries(props.data!)
+
     return (
         <section className={styles['results']}>
-            {(props.data)?.map((el,i) => {
+            {(Fooditems)?.map((el,i) => {
                 return (
-                    <div key={i} className={styles['categories']}>
-                        {el[1].map((ele,j) => {
-                            let dish = (ele as any) as {id: number, item_name: string, cat_id: number, price: number }
-                            return (
-                                <Cards type='food' key={j} heading={dish.item_name} content={props.content} price={dish.price}/>
-                            )
-                        })}
-                    </div>
+                    <section key={`Category ${i}`} className={styles['categories']}>
+                        <div id={`${el[0]}`} className={styles.separator} style={{width: '75vw', height: '2.5rem'}}/>
+                        <div key={`Category Head ${i}`} className={styles.categoryName}>{el[0]}</div>
+                        <div key={`Category Menu ${i}`} className={styles['fooditems']}>
+                            {el[1].map((ele,j) => {
+                                let dish = (ele as any) as {id: number, item_name: string, cat_id: number, price: number }
+                                return (
+                                    <Cards type='food' key={j} heading={dish.item_name} content={props.content} price={dish.price}/>
+                                )
+                            })}
+                        </div>
+                    </section>
                 )
             })}
         </section>
     )
 }
 
-const HandleClick:React.MouseEventHandler<HTMLSpanElement> = (event: React.MouseEvent) => {
-    
-}
+const SideBar:React.FC<{data?:responseTemplate1, handleclick:React.MouseEventHandler}> = (props) => {
 
-const Filter:React.FC<{data?:string[]}> = (props) => {
+    let categories:string[] = Object.keys(props.data!)
+
     return (
-        <section className={styles.filter}>
-            {(props.data)?.map((el,i) => {
+        <section className={styles.sidebar} onScroll={(event: React.UIEvent<HTMLElement>) => event.preventDefault()}>
+            {categories?.map((el,i) => {
                 return (
-                    <form className={styles.filterForm} key={i}>
-                        <span id='categoryFilter' onClick={HandleClick}>{el}</span>
-                    </form>
+                    <a href={`#${el}`} className={styles.sidebarlinks} key={i}>
+                        <span>{el}</span>
+                    </a>
                 )
             })
             }
@@ -59,6 +65,10 @@ const FoodItems:React.FC<{loc?: string, address?: string, name?: string, star?: 
         cat_id: 0,
         price: 0
     }]]])
+
+    const HandleClick:React.MouseEventHandler<HTMLSpanElement> = (event: React.MouseEvent) => {
+        // console.log(Menu)
+    }
 
     const Fetcher = () => {
         fetch(`http://localhost:3000/api/restaurants/${restId}/menu`, {
@@ -82,9 +92,6 @@ const FoodItems:React.FC<{loc?: string, address?: string, name?: string, star?: 
         window.scrollTo(0, 0);
     }, [restId])
     
-    let categories:string[] = Object.keys(Menu)
-    const items = Object.entries(Menu)
-    let Fooditems:responseTemplate2 = Object.entries(Menu)
     return (
         <div className={styles.fooditemWrapper}>
             <NavBar />
@@ -115,8 +122,8 @@ const FoodItems:React.FC<{loc?: string, address?: string, name?: string, star?: 
             </section>
 
             <section className={styles.content}>
-                <Filter data={categories} />
-                <CardGen heading='' content='' price={0} data={Fooditems} />
+                <SideBar data={Menu} handleclick={HandleClick} />
+                <CardGen heading='' content='' price={0} data={Menu} />
             </section>
             
             <Footer />

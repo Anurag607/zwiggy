@@ -32,7 +32,7 @@
         @include flex($gap : 2rem);
         @include bg;
         background-image: url('/nb.jpg');
-        z-index: 0;
+        z-index: 5;
         color: #e8e8e8;
 
         .restaurantPic {
@@ -45,7 +45,7 @@
                 height: 40vh;
                 @include bg;
             }
-            z-index: 1;
+            z-index: 6;
         }
         .restaurantDets {
             width: 65vw;
@@ -54,7 +54,7 @@
             align-items: flex-start;
             font-size: 1.35rem;
             padding-top: 5.5rem;
-            z-index: 1;
+            z-index: 6;
             cursor: default;
             .name {
                 font-size: 2.5rem;
@@ -102,8 +102,8 @@
         height: auto;
         width: 100vw;
         position: relative;
-        .filter {
-            width: 25vw;
+        .sidebar {
+            width: 17.5vw;
             height: 87vh;
             @include flex($dir : column, $gap : 0rem);
             justify-content: flex-start;
@@ -111,7 +111,7 @@
             border-right: 0.05rem solid #37474f;
             padding-top: 2.5rem;
             position: relative;
-            .filterForm {
+            .sidebarlinks {
                 @include flex($dir : column, $gap : 1rem);
                 justify-content: flex-start;
                 align-items: flex-end;
@@ -128,7 +128,7 @@
                     color: #000;
                 }
             }
-            .filterForm:hover {
+            .sidebarlinks:hover {
                 span {
                     background-color: #ff5c5f;
                     color: #fff;
@@ -138,16 +138,33 @@
         .results {
             width: 75vw;
             height: 87vh;
-            @include flex($dir : column, $gap : 2.5rem);
+            @include flex($dir : column, $gap : 0rem);
             justify-content: flex-start;
             align-items: flex-start;
             margin-top: 2.5rem;
             padding: 0rem 0 0rem 5rem;
             overflow: scroll;
+            scroll-behavior: smooth;
+            translate: 0 -5rem;
+            .categoryName {
+                font-family: 'Roboto', sans-serif;
+                font-weight: 500;
+                width: 70vw;
+                border-bottom: 0.05rem solid rgba(0,0,0,0.3);
+                font-size: 1.75rem;
+                text-transform: capitalize;
+                padding: 0.75rem 0.5rem;
+                cursor: default;
+            }
             .categories {
                 @include flex($dir : column, $gap : 2.5rem);
                 justify-content: flex-start;
                 align-items: flex-start;
+                .fooditems {
+                    @include flex($dir : column, $gap : 2.5rem);
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                }
             }
         }
     }
