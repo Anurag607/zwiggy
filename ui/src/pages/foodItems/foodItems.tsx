@@ -12,40 +12,52 @@ const CardGen:React.FC<{heading?:string, content?:string, price?:number}> = (pro
     return (
         <section className={styles['results']}>
             {rows.map((el,i) => {
-                return <Cards type='restaurant' key={i} heading={props.heading} content={props.content} price={props.price}/>
+                return <Cards type='food' key={i} heading={props.heading} content={props.content} price={props.price}/>
             })}
         </section>
     )
 }
 
-const searchResult = () => {
+const FoodItems:React.FC<{loc?: string, address?: string, name?: string, star?: number, rating?: number, restaurantImg?: string}> = (props) => {
     return (
-        <div className={styles.searchresWrapper}>
+        <div className={styles.fooditemWrapper}>
             <NavBar />
 
             <section className={styles.hero}>
-                <div className={styles.cityName}>
-                    <div className={styles.resNum}>
-                        489
-                        <div className={styles.overlay} />
-                    </div>
-                    Search Results For
-                    <div className={styles.resCity}>
-                        Jabalpur
-                        <div className={styles.overlay} />
-                    </div>
-                </div>
+                <section className={styles.restaurantPic}>
+                    <div className={styles.Img} style={{backgroundImage: `url(${props.restaurantImg ? props.restaurantImg : '/lemon.jpg'})`}} />
+                </section>
+                <section className={styles.restaurantDets}>
+                    <span className={styles.name}>
+                        {props.loc ? props.loc : 'Hotel Lemon'}
+                    </span>
+                    <span className={styles.Address}>
+                        <img src='location.png' alt='location' />
+                        Location : {props.loc ? props.loc : 'Napier Town, Jabalpur'}
+                    </span>
+                    <span className={styles.Desc}>
+                        Cuisine : {props.loc ? props.loc : 'Indian, Asian, Continental, Chinese'}
+                    </span>
+                    <span className={styles.Rating}>
+                        <span>
+                            <img src='/star.png' alt='rating (Star)' />
+                            {props.star ? props.star : 3.5}
+                        </span>
+                        {props.rating ? props.rating : 20}+ Ratings
+                    </span>
+                </section>
             </section>
 
-            <div style={{width: '100vw', height: '5rem'}} />
+            {/* <div style={{width: '100vw', height: '5rem'}} /> */}
 
-            <SortBar />
-
-            <CardGen heading='' content='' price={0} />
+            <section className={styles.content}>
+                <section className={styles.filter}></section>
+                <CardGen heading='' content='' price={0} />
+            </section>
             
             <Footer />
         </div>
     )
 }
 
-export default searchResult
+export default FoodItems

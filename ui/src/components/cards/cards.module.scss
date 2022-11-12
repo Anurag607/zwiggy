@@ -8,8 +8,7 @@
     gap: $gap;
 }
 
-@mixin bg($url : '') {
-    background-image: url($url);
+@mixin bg() {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -27,7 +26,7 @@
     .img {
         width: 16rem;
         height: 15.5rem;
-        @include bg($url : '/bg1.jpg');
+        @include bg;
         border-radius: 1rem;
     }
     .content {
@@ -62,7 +61,7 @@
     .img {
         width: 17rem;
         height: 15.5rem;
-        @include bg($url : '/pizza.jpg');
+        @include bg;
     }
     .content {
         padding: 0.25rem 0.25rem 1.25rem 0.25rem;
@@ -120,22 +119,22 @@
 .FoodCardWrapper {
     margin: 0;
     height: 11rem;
-    width: 35rem;
-    box-shadow: 0 0 0.5rem #e8e8e8;
-    @include flex($dir : row, $gap: 0.6rem);
+    width: 52.5rem;
+    transition: all 0.3s;
+    @include flex($dir : row, $gap: 2rem);
     justify-content: flex-start;
     position: relative;
     border-radius: 0.5rem;
     .img {
         width: 17rem;
         height: 100%;
-        @include bg($url : '/pizza.jpg');
+        @include bg;
     }
     .content {
         text-align: left;
         text-transform: capitalize;
         @include flex($dir : column, $gap: 0.5rem);
-        width: 17rem;
+        width: 32.5rem;
         height: auto;
         h3 {
             font-family: 'Roboto', sans-serif;
@@ -155,7 +154,7 @@
         margin-top: 0.25rem;
         @include flex;
         justify-content: space-between;
-        width: 17rem;
+        width: 32.5rem;
         height: auto;
         .addToCart {
             width: 8.5rem;
@@ -181,4 +180,8 @@
             padding-right: 2.5rem;
         }
     }
+}
+
+.FoodCardWrapper:hover {
+    box-shadow: 0 0 0.5rem #e8e8e8;
 }

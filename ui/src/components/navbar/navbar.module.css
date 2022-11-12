@@ -62,6 +62,44 @@
   background-color: #000000;
   color: #ffffff;
 }
+.navWrapper section .navDash {
+  font-size: 1.1rem;
+  color: #000;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  border: 0.075rem solid #000;
+  transition: 0.5s;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s;
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.5rem;
+}
+.navWrapper section .navDash div {
+  height: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.navWrapper section .navDash div:nth-child(1) {
+  width: 1.5rem;
+  background-image: url("/user.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.navWrapper section .navDash div:nth-child(2) {
+  width: auto;
+  padding: 0rem 0.5rem;
+  text-transform: capitalize;
+}
+.navWrapper section .navDash:hover {
+  background: #000000;
+  color: #ffffff;
+}
 .navWrapper section .cart {
   width: 2rem;
   height: 2rem;
