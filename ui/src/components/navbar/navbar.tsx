@@ -5,14 +5,21 @@ import { Link } from 'react-router-dom'
 import styles from './navbar.module.css'
 
 const NavBar = () => {
+    let username = sessionStorage.getItem('currentLoggedIn')
     return (
         <div className={styles["navWrapper"]}>
             <section>
-                <Link to='/home' className={styles.logoImg} />
-                <Link to='/home' className={styles.logoText}>wiggy</Link>
+                <Link to='/' className={styles.logoImg} />
+                <Link to='/' className={styles.logoText}>wiggy</Link>
             </section>
             <section>
-                <Link to='/signup' className={styles.login}>Login</Link>
+                {(( username? username : "")!.length != 0) ? 
+                    <Link to='/dashboard' className={styles.navDash}>
+                        <div />
+                        <div>{(username ? username : 'Username')}</div>
+                    </Link> :
+                    <Link to='/login' className={styles.login}>Login</Link>
+                }
                 <Link to= '/cart' className={styles.cart} />
             </section>
         </div>

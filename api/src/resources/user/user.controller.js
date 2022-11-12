@@ -9,7 +9,7 @@ const registerUser = async (req, res) => {
     const {name, password, phone_number, email, user_type} = req.body;
 
     if(!name || !password || !email || !user_type) {
-      res.status(400).send({message: "Some inputs are missing"});
+      return res.status(400).send({message: "Some inputs are missing"});
     }
 
     if(user_type != "customer" && user_type != "restaurant manager" && user_type != "delivery man") {
@@ -63,7 +63,7 @@ const loginUser = async (req, res) => {
     const {email, password} = req.body; 
 
     if(!(email && password)) {
-      res.status(400).send({message: "Email and password are required"});
+      return res.status(400).send({message: "Email and password are required"});
     }
 
     let [user, ] = await service.getUserByEmail(email)
@@ -71,7 +71,7 @@ const loginUser = async (req, res) => {
     console.log(user)
 
     if(user.length==0 || !(await bcrypt.compare(password, user[0].password))) {
-      res.status(400).send({message: "Invalid credentials"});
+      return res.status(400).send({message: "Invalid credentials"});
     }
 
     const token = jwt.sign(

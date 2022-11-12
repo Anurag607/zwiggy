@@ -39,7 +39,7 @@ const getRestaurantMenu = async (req,res)=>{
   res.status(200).json(JSON.parse(JSON.stringify(menu)));
 }
 
-const getRestaurant = async (req, res) => {
+const getRestaurants = async (req, res) => {
   let id = req.params['id']
   if(isNaN(id)) {
     id = id.toLowerCase()
