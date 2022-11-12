@@ -3,10 +3,13 @@ import React from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
 import './globals/global.css'
-import Filter from '../mocks/components/filter/filter.tsx'
-import Home from './pages/home/home.tsx'
-import Cards from './components/cards/cards.tsx'
-import SearchResult from './pages/searchResult/searchResult.tsx'
+import Filter from '../mocks/components/filter/filter'
+import Home from './pages/home/home'
+import Cards from './components/cards/cards'
+import SearchResult from './pages/searchResult/searchResult'
+import FoodItems from './pages/foodItems/foodItems'
+import Login from './pages/login/login'
+import Signup from './pages/signup/signup'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 const Default:React.FC<{count:number, handleclick:React.MouseEventHandler<HTMLButtonElement>}> = (props) => {
@@ -46,12 +49,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Default count={count} handleclick = {HandleClick} />} />
-        <Route path='/home' element={<Home />} />
+        {/* <Route path='/' element={<Default count={count} handleclick = {HandleClick} />} /> */}
+        <Route path='/' element={<Home />} />
         <Route path='/filter' element={<Filter />} />
         <Route path='/card' element={<Cards />} />
         <Route path='/results' element={<SearchResult />} />
-        <Route path='/foodItems' element={<SearchResult />} />
+        <Route path='/foodItems' element={<FoodItems />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
       </Routes>
     </BrowserRouter>
   )
