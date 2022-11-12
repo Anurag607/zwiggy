@@ -49,3 +49,14 @@ CREATE TABLE fooditem (
     FOREIGN KEY (cat_id) REFERENCES category(id)
  );
  
+CREATE TABLE `order` (
+    id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ordered_by INTEGER NOT NULL,
+    restaurant_id INTEGER NOT NULL,
+    delivered_by INTEGER NOT NULL,
+    status VARCHAR(15) NOT NULL DEFAULT "sent",
+    ordered_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (ordered_by) REFERENCES customer(id),
+    FOREIGN KEY (restaurant_id) REFERENCES restaurant(id),
+    FOREIGN KEY (delivered_by) REFERENCES delivery_man(id)
+)

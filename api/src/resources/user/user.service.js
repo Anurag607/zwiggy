@@ -8,6 +8,8 @@ const createCustomer = async (id, address) => pool.query(`INSERT INTO customer (
 
 const getCustomerById = async (id) => pool.query(`SELECT * FROM customer WHERE id = ${id};`)
 
+const getDeliveryManById = async (id) => pool.query(`SELECT * FROM delivery_man WHERE id = ${id};`)
+
 const createUser = async (data) => {
   const {name, password, phone_number, email, user_type} = data;
     const [res, ] = await pool.query(`
@@ -25,5 +27,6 @@ module.exports = {
   createUser,
   updateToken,
   createCustomer,
-  getCustomerById
+  getCustomerById,
+  getDeliveryManById
 }
