@@ -34,16 +34,18 @@ CREATE TABLE delivery_man (
     FOREIGN KEY (id) REFERENCES user(id)
 );
 
-CREATE TABLE fooditem (
-    id INT(5) NOT NULL PRIMARY KEY,
-    item_name VARCHAR(30) ,
-    price FLOAT
- );
- 
 CREATE TABLE category (
     id INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
     rest_id INTEGER NOT NULL,
-    name VARCHAR(32) NOT NULL,FOREIGN KEY (rest_id) REFERENCES restaurant(id)
+    name VARCHAR(32) NOT NULL,
+    FOREIGN KEY (rest_id) REFERENCES restaurant(id)
  );
 
-
+CREATE TABLE fooditem (
+    id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    item_name VARCHAR(30) ,
+    price FLOAT,
+    cat_id INTEGER NOT NULL,
+    FOREIGN KEY (cat_id) REFERENCES category(id)
+ );
+ 
