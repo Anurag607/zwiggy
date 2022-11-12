@@ -38,9 +38,17 @@ const getRestaurantMenu = async (req,res)=>{
 
   res.status(200).json(JSON.parse(JSON.stringify(menu)));
 }
-const getRestaurantsByCity = async (req, res) => {
-  const city = req.params['city'].toLowerCase()
-  const [data, ] = await restaurantService.getRestaurantsByCity(city);
+
+const getRestaurants = async (req, res) => {
+  let id = req.params['id']
+  if(isNaN(id)) {
+    id = id.toLowerCase()
+    var [data, ] = await restaurantService.getRestaurantByCity(id);
+  }
+  else {
+    id = parseInt(id)
+    var [data, ] = await restaurantService.getRestaurantById(id);
+  }
   res.status(200).json(JSON.parse(JSON.stringify(data)));
 }
 
@@ -48,5 +56,5 @@ module.exports = {
   getAllRestaurants,
   createRestaurant,
   getRestaurantMenu,
-  getRestaurantsByCity
+  getRestaurants
 }

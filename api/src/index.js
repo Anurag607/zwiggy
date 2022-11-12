@@ -18,7 +18,7 @@ app.use('/api/user', userRouter);
 app.use(auth.verifyToken);
 app.use('/api/restaurants', restaurantRouter);
 app.use('/api/fooditems',fooditemsRouter);
-app.use('/api/orders/', orderRouter)
+app.use('/api/orders', orderRouter)
+
 
 app.listen("3000");
-
