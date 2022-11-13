@@ -1,31 +1,36 @@
 const jwt = require('jsonwebtoken');
+const mysql = require('mysql2/promise')
 const bcrypt = require('bcrypt');
+const config = require('../../utils/dbConfig')
 require('dotenv').config();
 
 const service = require('./user.service');
 
 const registerUser = async (req, res) => {
+  const {name, password, phone_number, email, user_type} = req.body;
+
+  if(!name || !password || !email || !user_type) {
+    return res.status(400).send({message: "Some inputs are missing"});
+  }
+
+  if(user_type != "customer" && user_type != "restaurant manager" && user_type != "delivery man") {
+    return res.status(409).send({message: "Invalid user type"}); 
+  }
+
+  con = await mysql.createConnection(config)
+
+  const [oldUser, ] = await service.getUserByEmail(email, con);
+
+  if(oldUser.length != 0) {
+    return res.status(409).send({message: "User already exists"});
+  }
+
+  req.body["password"] = await bcrypt.hash(password, 10);
+
+  await con.query('START TRANSACTION');
+
   try {
-    const {name, password, phone_number, email, user_type} = req.body;
-
-    if(!name || !password || !email || !user_type) {
-      return res.status(400).send({message: "Some inputs are missing"});
-    }
-
-    if(user_type != "customer" && user_type != "restaurant manager" && user_type != "delivery man") {
-      return res.status(409).send({message: "Invalid user type"}); 
-    }
-
-    const [oldUser, ] = await service.getUserByEmail(email);
-
-    if(oldUser.length != 0) {
-      return res.status(409).send({message: "User already exists"});
-    }
-
-    req.body["password"] = await bcrypt.hash(password, 10);
-
-    newUserId = await service.createUser(req.body);
-    console.log(newUserId)
+    newUserId = await service.createUser(req.body, con);
 
     const token = jwt.sign(
       {user_id: newUserId, email},
@@ -35,13 +40,13 @@ const registerUser = async (req, res) => {
       }
     );
 
-    await service.updateToken(newUserId, token);
+    await service.updateToken(newUserId, token, con);
 
-    [newUser, ] = await service.getUserById(newUserId);
+    [newUser, ] = await service.getUserById(newUserId, con);
 
     if(user_type == "customer") {
-      await service.createCustomer(newUserId, req.body["address"]);
-      [newUser[0]["customer"], ] = await service.getCustomerById(newUserId);
+      await service.createCustomer(newUserId, req.body["address"], con);
+      [newUser[0]["customer"], ] = await service.getCustomerById(newUserId, con);
     }
     else if(user_type == "delivery man") {
     }
@@ -51,10 +56,13 @@ const registerUser = async (req, res) => {
       return res.status(409).send({message: "Invalid user type"});
     }
 
-    console.log(newUser)
+    await con.query('COMMIT')
+
     res.status(201).json(JSON.parse(JSON.stringify(newUser)));
   } catch(err) {
     console.log(err);
+    con.query('ROLLBACK')
+    res.status(400).send({message: "Invalid inputs"})
   }
 }
 
@@ -66,9 +74,7 @@ const loginUser = async (req, res) => {
       return res.status(400).send({message: "Email and password are required"});
     }
 
-    let [user, ] = await service.getUserByEmail(email)
-
-    console.log(user)
+    let [user, ] = await service.getUserByEmail(email, con)
 
     if(user.length==0 || !(await bcrypt.compare(password, user[0].password))) {
       return res.status(400).send({message: "Invalid credentials"});
@@ -82,7 +88,7 @@ const loginUser = async (req, res) => {
       }
     );
 
-    await service.updateToken(user[0].id, token); 
+    await service.updateToken(user[0].id, token, con); 
 
     user[0].token = token; 
 

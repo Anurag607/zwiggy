@@ -13,12 +13,12 @@ const getOneRestaurant = async (id) => pool.query(`SELECT * FROM restaurant WHER
 
 const getRestaurantsByCity = async (city) => pool.query(`SELECT * FROM restaurant WHERE city LIKE '${city}'` )
 
-const getRestaurantsById = async (id) => pool.query(`SELECT * FROM restaurant WHERE id = ${id}`)
+const getRestaurantById = async (id) => pool.query(`SELECT * FROM restaurant WHERE id = ${id}`)
 
 module.exports = {
   getAllRestaurants,
   createRestaurant,
   getOneRestaurant,
   getRestaurantsByCity,
-  getRestaurantsById
+  getRestaurantById
 }
