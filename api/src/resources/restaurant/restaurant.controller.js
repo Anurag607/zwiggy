@@ -43,7 +43,7 @@ const getRestaurants = async (req, res) => {
   let id = req.params['id']
   if(isNaN(id)) {
     id = id.toLowerCase()
-    var [data, ] = await restaurantService.getRestaurantByCity(id);
+    var [data, ] = await restaurantService.getRestaurantsByCity(id);
   }
   else {
     id = parseInt(id)
