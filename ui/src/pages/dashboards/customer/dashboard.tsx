@@ -42,6 +42,18 @@ const Dashboard = (props:{}) => {
         styling.accept.current!.style.display = 'none'
     }
 
+    const foodList = JSON.parse(localStorage.getItem('content') || '[]')
+    let temp = ''
+    foodList.map((el:string, i:number) => {
+        temp += el
+        if(i < foodList.length-1) temp += ', '
+    })
+
+    React.useEffect(() => {
+        if(temp.length > 0) {
+            Setcontents(temp)
+        }
+    }, [])
     return (
         <div id='dashboard' className={styles.dashboard}>
             <div className={styles.sidebarLogoCont}>
@@ -75,16 +87,19 @@ const Dashboard = (props:{}) => {
                     <span></span>
                 </div>
             </div>
-            <div className={styles.currOrders} ref={styling.currOrder}>
-                    <div className={styles.info}>
-                        <div className={styles.custName}>{cust}</div>
-                        <div className={styles.contents}>{contents}</div>
-                        <div className={styles.price}>Total Price : {price}</div>
-                    </div>
-                    <div className={styles.accept} ref={styling.accept}>
-                        {(custType !== "cutomer") ? <></> : <div className={styles.btn} onClick={HandleClick}>Accept</div>}
-                    </div>
-            </div>
+            {(foodList!.length > 0) ? 
+                <div className={styles.currOrders} ref={styling.currOrder}>
+                <div className={styles.info}>
+                    <div className={styles.custName}>Customer Name : {localStorage.getItem('currentLoggedIn')}</div>
+                    <div className={styles.contents}>Order Contents : {contents}</div>
+                    <div className={styles.price}>Total Price : {localStorage.getItem('totalCost') ? localStorage.getItem('totalCost') : 1000}</div>
+                </div>
+                <div className={styles.accept} ref={styling.accept}>
+                    {(custType !== "cutomer") ? <></> : <div className={styles.btn} onClick={HandleClick}>Accept</div>}
+                </div>
+                </div>
+            : <div className={styles.currOrders} style={{}}>No Current Order!</div>
+            }
             <div className={styles.prevOrders}>
                 <CardGen content='' price={0} cust='' />
             </div>

@@ -243,7 +243,8 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding-block: 0.25rem;
+  align-items: flex-start;
+  padding: 0.25rem 0.5rem;
   max-width: 40rem;
   z-index: 1;
 }
@@ -266,6 +267,7 @@
 }
 .dashboard section:nth-child(2) .currOrders .info div {
   background-color: transparent;
+  text-transform: capitalize;
 }
 .dashboard section:nth-child(2) .currOrders .accept {
   background-color: transparent;
