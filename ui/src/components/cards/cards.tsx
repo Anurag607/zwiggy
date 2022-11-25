@@ -18,25 +18,26 @@ interface CartProps {
     }
 }
 
+type foodItemType = {name: string, price: number, qty: number}
+
 const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: number, image?: string, id?: number, city ?: string, cust?: string, orderNum?: number}> = (props) => {
 
     const id = React.useRef<number>(1)
     const [count, SetCount] = React.useState(0)
     const [item,Setitem] = React.useState<{name: string, price: number, qty: number}>({
-        name: '',
+        name: 'hello',
         price: 0,
         qty: 0
     })
-    const [cart, Setcart] = React.useState<{name: string, price: number, qty: number}[]>([])
-    const [finalCart, Setfinalcart] = React.useState<{name: string, price: number, qty: number}[]>([])
+    const [cart, Setcart] = React.useState<{name: string, price: number, qty: number}[]>(JSON.parse(localStorage.getItem('cart') || '[]'))
+    const [finalCart, Setfinalcart] = React.useState<{name: string, price: number, qty: number}[]>(JSON.parse(localStorage.getItem('finalCart')|| '[]'))
     const navigate = useNavigate()
 
     React.useEffect(() => {
-        const temp = JSON.parse(localStorage.getItem('cart') || "[]")
-        Setfinalcart(finalCart => [
-            ...finalCart,
-            temp
-        ])
+        const currentCart = JSON.parse(localStorage.getItem('cart') || '[]')
+        const currentFinalCart = JSON.parse(localStorage.getItem('finalCart')|| '[]')
+        Setfinalcart([...cart, ...currentFinalCart])
+        localStorage.setItem("finalCart", JSON.stringify(finalCart))
         UpdateCart({item})
     }, [item])
     
@@ -47,24 +48,21 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
         const itemExist = cart.find(item => item.name === props.item.name)
     
         if(!itemExist) {
-            Setcart(currentCart => [
-                ...currentCart,
-                props.item
-            ])
-            console.log(cart)
+            Setcart([props.item, ...cart])
             localStorage.setItem('cart', JSON.stringify(cart))
             return
         } else {
             Setcart(currentCart => 
                 currentCart.map((obj,i) => 
-                    (obj.name === props.item.name) ?
-                        { ...itemExist, name: props.item.name, price: props.item.price, qty: props.item.qty }
-                    : obj
+                (obj.name === props.item.name) ?
+                { ...itemExist, name: props.item.name, price: props.item.price, qty: props.item.qty }
+                : obj
                 )
             )
-            console.log(finalCart)
             localStorage.setItem('cart', JSON.stringify(cart))
         }
+        console.log(JSON.parse(localStorage.getItem("cart")!))
+        console.log(JSON.parse(localStorage.getItem("finalCart")!))
     }
 
     const ProductCounter = (props : {itemName?: string, price?: number}) => {
@@ -78,7 +76,6 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
                             price: (props.price!)*count,
                             qty: count
                         })
-                        // UpdateCart({item})
                     }
                 }><img src="/minus.png" alt="decrease"/></div>
                 <span>{`${count}`}</span>
@@ -89,7 +86,6 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
                         price: (props.price!)*count,
                         qty: count
                     })
-                    // UpdateCart({item})
                 }}><img src="/plus.png" alt="increase"/></div>
             </span>
         )
@@ -98,7 +94,8 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
     const BtnRenderer:React.FC<{itemName?: string, price?: number}> = (props) => {
         return (
             <>
-                {(count === 0) ?
+                {
+                (count === 0) ?
                     <span className={styles.addToCart} id="addToCart" onClick={() => {
                         SetCount(count => count+1)
                         Setitem({
@@ -106,7 +103,6 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
                             price: (props.price!)*count,
                             qty: count
                         })
-                        // UpdateCart({item})
                     }}>
                         Add
                         <img src="/plus.png" alt="addToCart" />
