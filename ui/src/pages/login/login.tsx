@@ -21,6 +21,13 @@ export default function Login() {
 
     const navigate = useNavigate()
 
+    const custDet = React.useRef({
+        id: 0,
+        token: "",
+        name: '',
+        user_type: ''
+    })
+
     const styling = {
         email: React.useRef<HTMLInputElement>(null),
         pass: React.useRef<HTMLInputElement>(null),
@@ -84,6 +91,14 @@ export default function Login() {
                 //     styling.warning.current!.style.animation = 'none'
                 // }, 700)
             } else {
+                custDet.current = {
+                    id: resMessage[0].id,
+                    token: resMessage[0].token,
+                    name: resMessage[0].name,
+                    user_type: resMessage[0].user_type
+                }
+                // console.log(custDet.current)
+                localStorage.setItem("custDet", JSON.stringify(custDet.current))
                 localStorage.setItem("currentLoggedIn", resMessage[0].name)
                 styling.warning.current!.style.display = 'none'
                 styling.email.current!.style.border = 'transparent'

@@ -12,19 +12,21 @@ const placeholder = {
 let a = 0
 interface CartProps {
     item : {
+        id: number
         name: string,
         price: number,
         qty: number
     }
 }
 
-type foodItemType = {name: string, price: number, qty: number}
+type foodItemType = {id: number, name: string, price: number, qty: number}
 
-const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: number, image?: string, id?: number, city ?: string, cust?: string, orderNum?: number}> = (props) => {
+const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: number, image?: string, id?: number, city ?: string, cust?: string, orderNum?: number, foodItemID?:number}> = (props) => {
 
     const id = React.useRef<number>(1)
     const [count, SetCount] = React.useState(0)
-    const [item,Setitem] = React.useState<{name: string, price: number, qty: number}>({
+    const [item,Setitem] = React.useState<{id: number, name: string, price: number, qty: number}>({
+        id: 0,
         name: 'hello',
         price: 0,
         qty: 0
@@ -42,6 +44,8 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
     }, [item])
     
     const UpdateCart = (props:CartProps) => {
+        // console.log(++a)
+        // console.log(props.item)
         const itemExist = cart.find(item => item.name === props.item.name)
     
         if(!itemExist) {
@@ -51,7 +55,7 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
             Setcart(currentCart => 
                 currentCart.map((obj,i) => 
                 (obj.name === props.item.name) ?
-                { ...itemExist, name: props.item.name, price: props.item.price, qty: props.item.qty }
+                { ...itemExist, id:props.item.id, name: props.item.name, price: props.item.price, qty: props.item.qty }
                 : obj
                 )
             )
@@ -59,13 +63,14 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
         }
     }
 
-    const ProductCounter = (props : {itemName?: string, price?: number}) => {
+    const ProductCounter = (props : {itemName?: string, price?: number, id?: number}) => {
         return (
             <span className={styles.productCounter} id="addToCart">
                 <div onClick={ () => {
                         if(count > 0) SetCount(count => count-1)
                         else SetCount(0)
                         Setitem({
+                            id: props.id!,
                             name: props.itemName!,
                             price: (props.price!)*count,
                             qty: count
@@ -76,6 +81,7 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
                 <div onClick={() => {
                     SetCount(count => count+1)
                     Setitem({
+                        id: props.id!,
                         name: props.itemName!,
                         price: (props.price!)*count,
                         qty: count
@@ -85,7 +91,7 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
         )
     }
 
-    const BtnRenderer:React.FC<{itemName?: string, price?: number}> = (props) => {
+    const BtnRenderer:React.FC<{itemName?: string, price?: number, id?: number}> = (props) => {
         return (
             <>
                 {
@@ -93,6 +99,7 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
                     <span className={styles.addToCart} id="addToCart" onClick={() => {
                         SetCount(count => count+1)
                         Setitem({
+                            id: props.id!,
                             name: props.itemName!,
                             price: (props.price!)*count,
                             qty: count
@@ -101,7 +108,7 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
                         Add
                         <img src="/plus.png" alt="addToCart" />
                     </span> : 
-                    <ProductCounter itemName={props.itemName} price={props.price} />
+                    <ProductCounter itemName={props.itemName} price={props.price} id={props.id} />
                 }
             </>
         )
@@ -151,7 +158,7 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
         )
     }
     
-    const FoodCard:React.FC<{heading?: string, content?:string, price?: number, image?: string}> = (props) => {
+    const FoodCard:React.FC<{heading?: string, content?:string, price?: number, image?: string, foodItemId?: number}> = (props) => {
         return (
             <div className={styles.FoodCardWrapper}>
                 <div className={styles.img} style={{backgroundImage: `url(${props.image ? props.image : '/kheer.jpg'})`}} />
@@ -159,7 +166,7 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
                     <h3>{props.heading}</h3>
                     <p>{props.content}</p>
                     <div>
-                        <BtnRenderer itemName={props.heading} price={props.price} />                        
+                        <BtnRenderer itemName={props.heading} price={props.price} id={props.foodItemId}/>                        
                         <p className={styles.itemPrice}> ₹ {props.price} </p>
                     </div>
                 </section>
@@ -195,7 +202,7 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
         )
     }
     
-    const CardRenderer:React.FC<{type?:string, heading?: string, content?:string, price?: number, image?: string, order?:number, cust?: string}> = (props) => {
+    const CardRenderer:React.FC<{type?:string, heading?: string, content?:string, price?: number, image?: string, order?:number, cust?: string, foodItemId?:number}> = (props) => {
         switch(props.type) {
             case 'Features' : {
                 return <FeaturesCards heading={props.heading} content={props.content} image={props.image} />
@@ -206,7 +213,7 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
                 break
             }
             case 'food' : {
-                return <FoodCard heading={props.heading} content={props.content} price={props.price} image={props.image} />
+                return <FoodCard heading={props.heading} content={props.content} price={props.price} image={props.image} foodItemId={props.foodItemId}/>
                 break
             }
 
@@ -225,7 +232,7 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
         }
     }
 
-    return <CardRenderer type={(props.type !== '') ? props.type : ''} order={props.orderNum} cust={(props.cust !== '') ? props.cust : placeholder.custName} heading={(props.heading !== '') ? props.heading : placeholder.heading} content={(props.content !== '') ? props.content : placeholder.content} price={(props.price !== 0) ? props.price : placeholder.price} />
+    return <CardRenderer type={(props.type !== '') ? props.type : ''} foodItemId={props.foodItemID ? props.foodItemID : 0} order={props.orderNum} cust={(props.cust !== '') ? props.cust : placeholder.custName} heading={(props.heading !== '') ? props.heading : placeholder.heading} content={(props.content !== '') ? props.content : placeholder.content} price={(props.price !== 0) ? props.price : placeholder.price} />
 }
 
 export default Cards

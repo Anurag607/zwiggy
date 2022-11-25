@@ -25,8 +25,9 @@ const CardGen:React.FC<{heading?:string, content?:string, price?:number, data?:r
                         <div key={`Category Menu ${i}`} className={styles['fooditems']}>
                             {el[1].map((ele,j) => {
                                 let dish = (ele as any) as {id: number, item_name: string, cat_id: number, price: number }
+                                // console.log(dish)
                                 return (
-                                    <Cards type='food' key={j} heading={dish.item_name} content={props.content} price={dish.price}/>
+                                    <Cards type='food' key={j} foodItemID={dish.id} heading={dish.item_name} content={props.content} price={dish.price}/>
                                 )
                             })}
                         </div>
@@ -68,6 +69,7 @@ const FoodItems:React.FC<{loc?: string, address?: string, name?: string, star?: 
 
     const location = useLocation()
     let restId = location.pathname.trim().split('/')[3]
+    localStorage.setItem('restId', `${restId}`)
     
     const [Menu,SetMenu] = React.useState<responseTemplate1>([[[{
         id: 1,
