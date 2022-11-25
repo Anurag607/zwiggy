@@ -5,20 +5,103 @@ import NavBar from '../../components/navbar/navbar'
 import styles from './foodItems.module.css'
 import Footer from '../../components/footer/footer'
 import Cards from '../../components/cards/cards'
-import SortBar from '../../components/sortbar/sortbar'
+import { useNavigate, useLocation } from 'react-router-dom'
 
-const CardGen:React.FC<{heading?:string, content?:string, price?:number}> = (props) => {
-    let rows = new Array(20).fill(1)
+type responseTemplate1 = Array<Array<Array<{id:number, item_name:string, cat_id:number, price: number}>>>
+type responseTemplate2 = [string, {id: number, item_name: string, cat_id: number, price: number }[][]][]
+
+const CardGen:React.FC<{heading?:string, content?:string, price?:number, data?:responseTemplate1}> = (props) => {
+
+    let Fooditems:responseTemplate2 = Object.entries(props.data!)
+
     return (
         <section className={styles['results']}>
-            {rows.map((el,i) => {
-                return <Cards type='food' key={i} heading={props.heading} content={props.content} price={props.price}/>
+            {(Fooditems)?.map((el,i) => {
+                if(el[1].length == 0) return <div key={i} />
+                return (
+                    <section key={`Category ${i}`} className={styles['categories']}>
+                        <div id={`${el[0]}`} className={styles.separator} style={{width: '75vw', height: '2.5rem'}}/>
+                        <div key={`Category Head ${i}`} className={styles.categoryName}>{el[0]}</div>
+                        <div key={`Category Menu ${i}`} className={styles['fooditems']}>
+                            {el[1].map((ele,j) => {
+                                let dish = (ele as any) as {id: number, item_name: string, cat_id: number, price: number }
+                                return (
+                                    <Cards type='food' key={j} heading={dish.item_name} content={props.content} price={dish.price}/>
+                                )
+                            })}
+                        </div>
+                    </section>
+                )
             })}
         </section>
     )
 }
 
+const SideBar:React.FC<{data?:responseTemplate1, handleclick:React.MouseEventHandler}> = (props) => {
+
+    let categories:string[] = Object.keys(props.data!)
+    let empty:number[] = []
+
+    let Fooditems:responseTemplate2 = Object.entries(props.data!)
+    {(Fooditems)?.map((el,i) => {
+        if(el[1].length == 0) empty.push(i)
+    })}
+
+    return (
+        <section className={styles.sidebar} onScroll={(event: React.UIEvent<HTMLElement>) => event.preventDefault()}>
+            {categories?.map((el,i) => {
+                for(let j in empty) {
+                    if(empty[j] === i) return <div key={i} />
+                }
+                return (
+                    <a href={`#${el}`} className={styles.sidebarlinks} key={i}>
+                        <span>{el}</span>
+                    </a>
+                )
+            })
+            }
+        </section>
+    )
+}
+
 const FoodItems:React.FC<{loc?: string, address?: string, name?: string, star?: number, rating?: number, restaurantImg?: string}> = (props) => {
+
+    const location = useLocation()
+    let restId = location.pathname.trim().split('/')[3]
+    
+    const [Menu,SetMenu] = React.useState<responseTemplate1>([[[{
+        id: 1,
+        item_name: '',
+        cat_id: 0,
+        price: 0
+    }]]])
+
+    const HandleClick:React.MouseEventHandler<HTMLSpanElement> = (event: React.MouseEvent) => {
+        // console.log(Menu)
+    }
+
+    const Fetcher = () => {
+        fetch(`http://localhost:3000/api/restaurants/${restId}/menu`, {
+            method: 'GET',
+            mode: "cors",
+            headers: { 'Content-type' : 'application/json', 'token' : `` }
+        })
+        .then(response => {
+            return response.json()
+        })
+        .then(resMessage => {
+            SetMenu(resMessage)
+        })
+        .catch((err) => {
+            console.error(err.message)
+        })
+    }
+
+    React.useEffect(() => {
+        Fetcher()
+        window.scrollTo(0, 0);
+    }, [restId])
+    
     return (
         <div className={styles.fooditemWrapper}>
             <NavBar />
@@ -32,7 +115,7 @@ const FoodItems:React.FC<{loc?: string, address?: string, name?: string, star?: 
                         {props.loc ? props.loc : 'Hotel Lemon'}
                     </span>
                     <span className={styles.Address}>
-                        <img src='location.png' alt='location' />
+                        <img src='/location.png' alt='location' />
                         Location : {props.loc ? props.loc : 'Napier Town, Jabalpur'}
                     </span>
                     <span className={styles.Desc}>
@@ -48,11 +131,9 @@ const FoodItems:React.FC<{loc?: string, address?: string, name?: string, star?: 
                 </section>
             </section>
 
-            {/* <div style={{width: '100vw', height: '5rem'}} /> */}
-
             <section className={styles.content}>
-                <section className={styles.filter}></section>
-                <CardGen heading='' content='' price={0} />
+                <SideBar data={Menu} handleclick={HandleClick} />
+                <CardGen heading='' content='' price={0} data={Menu} />
             </section>
             
             <Footer />

@@ -171,6 +171,42 @@
                 height: 1rem;
             }
         }
+        .productCounter {
+            width: 8.5rem;
+            height: auto;
+            border-radius: 0.3rem;
+            padding: 0.5rem;
+            @include flex($gap : 1rem);
+            justify-content: space-evenly;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            color: #000000;
+            position: relative;
+            span {
+                width: 33.33%;
+                height: 100%;
+                cursor: default;
+                background-color: #ffffff;
+            }
+            div {
+                height: 100%;
+                width: 333.33%;
+                cursor: pointer;
+                background-color: #ffd300;
+                @include flex;
+                padding: 0.5rem;
+                img {
+                    width: 1rem;
+                    height: 1rem;
+                }
+            }
+            div:nth-child(1) {
+                border-radius: 0.3rem 0 0 0.3rem;
+            }
+            div:nth-child(3) {
+                border-radius: 0 0.3rem 0.3rem 0;
+            }
+        }
         .itemPrice {
             width: fit-content;
             block-size: fit-content;
@@ -184,4 +220,39 @@
 
 .FoodCardWrapper:hover {
     box-shadow: 0 0 0.5rem #e8e8e8;
+}
+
+.OrdersCardWrapper {
+    @include flex($gap: 0.5rem);
+    padding-block: 0.25rem;
+    max-width: 20rem;
+    border-bottom: 0.1rem rgba(0,0,0,0.69) solid;
+    z-index: 1;
+    background-color: transparent;
+    .info {
+        @include flex($dir: column);
+        justify-content: space-around;
+        font-size: 0.75rem;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        align-items: flex-start;
+        padding-left: 0.5rem;
+        text-align: left;
+        max-width: 13rem;
+        cursor: default;
+    }
+    .orderNum {
+        background-color: #ffd300 !important;
+        @include flex;
+        max-width: 5rem;
+        max-height: 5rem;
+        font-size: 3rem;
+        width: 5rem;
+        height: 5rem;
+        cursor: default;
+        translate: -0.25rem -0.25rem;
+        overflow: hidden;
+        z-index: 0;
+        color: #fff;
+    }
 }

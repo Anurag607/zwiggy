@@ -10,4 +10,6 @@ INSERT INTO restaurant (
     ('Rest7', 'Street Seven', 3.6,'nashik'),
     ('Rest8', 'Street Eight', 3.5,'nashik'),
     ('Rest9', 'Street Nine', 3.4,'lucknow'),
-    ('Rest10', 'Street Ten', 3.3,'lucknow');
+    ('Rest10', 'Street Ten', 3.3,'lucknow'),
+    ('Rest11', 'Street Eleven', 3.6 , 'mumbai'),
+    ('Rest22', 'Street Twelve', 4,'mumbai');

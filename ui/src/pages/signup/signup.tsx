@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { token } from 'morgan'
+/// <reference path='../../../typings.d.ts' />
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './signup.module.css'
@@ -91,9 +91,8 @@ export default function Signup() {
                 return response.json()
             })
             .then(resMessage => {
-                console.log(resMessage)
                 if(resMessage[0].token) {
-                    sessionStorage.setItem("currentLoggedIn", signupdet.name)
+                    localStorage.setItem("currentLoggedIn", signupdet.name)
                     styling.warning.current!.style.display = 'none'
                     styling.email.current!.style.border = 'transparent'
                     styling.heading.current!.style.marginBottom = '1rem'

@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Roboto:wght@400;500&family=Seymour+One&display=swap');
+
+@mixin align ($dir: column) {
+    display: flex;
+    flex-direction: $dir;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@mixin bg($url : '') {
+    background-image: url($url);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@keyframes opacity {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes opacity {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.dashboard {
+    transition: all 0.5s;
+    padding-block: 1rem;
+    animation: opacity 1s linear;
+    @include align ($dir: row);
+    gap: 1rem;
+
+    .sidebarLogoCont {
+        @include align;
+        gap: 0.5rem;
+        width: 22vw;
+        height: 95vh;
+
+        .logo {
+            @include align($dir: row);
+            height: 15vh;
+            .logoImg {
+                width: 4rem;
+                height: 4rem;
+                @include bg($url : '/logo.jpg');
+                cursor: pointer;
+                margin: 0;
+                padding: 0;
+            }
+            .logoImgTxt {
+                padding: 1rem 0.15rem;
+                font-size: 3.5rem;
+                font-family: 'Roboto', sans-serif;
+                font-weight: 500;
+                color: transparent;
+                @include bg($url : '/logo.jpg');
+                cursor: pointer;
+                background-clip: text;
+            }
+            .logoText {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 400;
+                font-size: 2rem;
+                cursor: pointer;
+                color: #000000;
+                translate: -0.2rem 0rem;
+            }
+        }
+
+        .sidebar {
+            color: #37474f;
+            display: grid;
+            grid-auto-rows: minmax(0, 1fr);
+            grid-auto-columns: minmax(0, 1fr);
+            grid-template-areas: 
+            'one'
+            'two'
+            'two'
+            'two'
+            'two'
+            'two'
+            'three'
+            'four'
+            'five';
+            background: #e8e8e8;
+            width: 22vw;
+            height: 75vh;
+            border-radius: 1rem;
+            padding-block: 0.5rem;
+            div {
+                @include align($dir: row);
+                gap: 0.5rem;
+                border-radius: 1rem;
+                img {
+                    width: 2rem;
+                    height: 2rem;
+                    cursor: pointer;
+                }
+                span {
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                    border: none;
+                    transition: all 0.5s;
+                    padding: 0;
+                    border: 1px solid transparent;
+                }
+            }
+
+            .placeholder {
+                grid-area: one;
+            }
+    
+            .links {
+                text-decoration: none;
+                color: #37474f;
+                @include align($dir: row);
+                gap: 0.5rem;
+                border-radius: 1rem;
+                img {
+                    width: 2rem;
+                    height: 2rem;
+                    cursor: pointer;
+                }
+                span {
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                    border: none;
+                    transition: all 0.5s;
+                    padding: 0;
+                    border: 1px solid transparent;
+                }
+                span:hover {
+                    border: 1px solid #37474f;
+                    padding: 0.3rem 3rem;
+                    border-radius: 1rem;
+                }
+            }
+    
+            .change {
+                grid-area: three;
+            }
+    
+            .logout {
+                grid-area: five;
+            }
+    
+            .home {
+                grid-area: four;
+            }
+        }
+    }
+
+    section:nth-child(2) {
+        color: #37474f;
+        display: grid;
+        grid-template-areas:
+        'one one one one one one'
+        'two two two two three three'
+        'two two two two three three'
+        'two two two two three three'
+        'two two two two three three'
+        'four four four four three three'
+        'four four four four three three'
+        'four four four four three three'
+        'four four four four three three'
+        'four four four four three three';
+        background: transparent;
+        width: 75vw;
+        height: 95vh;
+        gap: 0.75rem;
+        border-radius: 1rem;
+        div {
+            background: #e8e8e8;
+            border: transparent;
+            border-radius: 0.5rem;
+        }
+        .header{
+            color: #37474f;
+            grid-area: one;
+            @include align($dir:row);
+            justify-content: flex-start;
+            padding: 1.5rem 2rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            gap: 1rem;
+            img {
+                height: 2rem;
+                filter: opacity(0.75);
+            }
+        }
+        .profile{
+            grid-area: two;
+            @include align($dir:row);
+            position: relative;
+            .profileimg {
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                // width: 45%;
+                // height: 90%;
+                width: 15rem;
+                height: 15rem;
+                border-radius: 100%;
+                border: none;
+                overflow: hidden;
+                cursor: default;
+                position: relative;
+                vertical-align: middle;
+                text-align: center;
+                translate: 1.5rem 0;
+            }
+            .info {
+                @include align($dir:column);
+                translate: 1rem 0;
+                // width: 50%;
+                // height: 100%;
+                width: 24rem;
+                // height: 20rem;
+                gap: 0.5rem;
+                cursor: default;
+                background-color: transparent;
+                span {
+                    @include align ($dir: row);
+                    // height: 17.5%;
+                    // width: 85%;
+                    height: 3rem;
+                    width: 17.875rem;
+                    background: #c5c5c5;
+                    border-radius: 1rem;
+                    text-align: center;
+                    vertical-align: middle;
+                    text-transform: capitalize;
+                }
+            }
+        }
+        .currOrders {
+            grid-area: four;
+            @include align($dir:column);
+            padding-block: 0.25rem;
+            max-width: 40rem;
+            z-index: 1;
+            .info {
+                @include align($dir: column);
+                gap: 0.5rem;
+                justify-content: space-around;
+                font-size: 1rem;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 400;
+                align-items: flex-start;
+                padding-left: 0.5rem;
+                text-align: left;
+                cursor: default;
+                background-color: transparent;
+                div {
+                    background-color: transparent;
+                }
+            }
+            .accept {
+                background-color: transparent;
+                .btn {
+                    @include align($dir : row);
+                    justify-content: flex-end;
+                    background-color: #ffd300 !important;
+                    @include align($dir: row);
+                    font-size: 1.5rem;
+                    cursor: default;
+                    color: #fff;
+                    padding: 0.5rem 1rem;
+                    cursor: pointer;
+                    translate: 15rem 0;
+                }
+            }
+        }
+        .prevOrders {
+            grid-area: three;
+            @include align($dir:column);
+            justify-content: flex-start;
+            align-items: flex-start;
+            overflow: scroll;
+        }
+    }
+}   

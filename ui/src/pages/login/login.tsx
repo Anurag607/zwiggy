@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/google-font-display */
 /* eslint-disable @next/next/no-page-custom-font */
+/// <reference path='../../../typings.d.ts' />
 import React, { useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './login.module.css'
@@ -73,7 +74,6 @@ export default function Login() {
             return response.json()
         })
         .then(resMessage => {
-            console.log(resMessage)
             if(status !== 200) {
                 styling.warning.current!.style.display = 'block'
                 // styling.warning.current!.style.animation = 'shake 0.5s linear'
@@ -84,7 +84,7 @@ export default function Login() {
                 //     styling.warning.current!.style.animation = 'none'
                 // }, 700)
             } else {
-                sessionStorage.setItem("currentLoggedIn", resMessage[0].name)
+                localStorage.setItem("currentLoggedIn", resMessage[0].name)
                 styling.warning.current!.style.display = 'none'
                 styling.email.current!.style.border = 'transparent'
                 styling.pass.current!.style.border = 'transparent'
