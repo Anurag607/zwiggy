@@ -92,7 +92,7 @@ export default function Signup() {
             })
             .then(resMessage => {
                 if(resMessage[0].token) {
-                    sessionStorage.setItem("currentLoggedIn", signupdet.name)
+                    localStorage.setItem("currentLoggedIn", signupdet.name)
                     styling.warning.current!.style.display = 'none'
                     styling.email.current!.style.border = 'transparent'
                     styling.heading.current!.style.marginBottom = '1rem'

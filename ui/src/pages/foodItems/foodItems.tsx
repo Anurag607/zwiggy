@@ -17,6 +17,7 @@ const CardGen:React.FC<{heading?:string, content?:string, price?:number, data?:r
     return (
         <section className={styles['results']}>
             {(Fooditems)?.map((el,i) => {
+                if(el[1].length == 0) return <div key={i} />
                 return (
                     <section key={`Category ${i}`} className={styles['categories']}>
                         <div id={`${el[0]}`} className={styles.separator} style={{width: '75vw', height: '2.5rem'}}/>
@@ -39,10 +40,19 @@ const CardGen:React.FC<{heading?:string, content?:string, price?:number, data?:r
 const SideBar:React.FC<{data?:responseTemplate1, handleclick:React.MouseEventHandler}> = (props) => {
 
     let categories:string[] = Object.keys(props.data!)
+    let empty:number[] = []
+
+    let Fooditems:responseTemplate2 = Object.entries(props.data!)
+    {(Fooditems)?.map((el,i) => {
+        if(el[1].length == 0) empty.push(i)
+    })}
 
     return (
         <section className={styles.sidebar} onScroll={(event: React.UIEvent<HTMLElement>) => event.preventDefault()}>
             {categories?.map((el,i) => {
+                for(let j in empty) {
+                    if(empty[j] === i) return <div key={i} />
+                }
                 return (
                     <a href={`#${el}`} className={styles.sidebarlinks} key={i}>
                         <span>{el}</span>

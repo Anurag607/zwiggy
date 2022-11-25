@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Roboto:wght@400;500&display=swap');
+
+@mixin flex($dir : row, $gap : 0rem) {
+    display: flex;
+    flex-direction: $dir;
+    justify-content: center;
+    align-items: center;
+    gap: $gap;
+}
+
+@mixin bg() {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.cartWrapper {
+    .content {
+        width: 100vw;
+        height: 100vh;
+        @include flex($dir : row, $gap : 0.5rem);
+        .sidebar {
+            @include flex($dir : column, $gap : 0.5rem);
+            justify-content: flex-start;
+            align-items: flex-start;
+            overflow: scroll;
+            height: 100vh;
+        }
+        .bill {
+            @include flex($dir : column, $gap : 0.5rem);
+            justify-content: flex-start;
+            align-items: flex-start;
+            background-color: #e8e8e8;
+            height: 100vh;
+            width: 32.5vw;
+        }
+    }
+}

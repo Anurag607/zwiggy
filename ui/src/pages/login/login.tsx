@@ -84,7 +84,7 @@ export default function Login() {
                 //     styling.warning.current!.style.animation = 'none'
                 // }, 700)
             } else {
-                sessionStorage.setItem("currentLoggedIn", resMessage[0].name)
+                localStorage.setItem("currentLoggedIn", resMessage[0].name)
                 styling.warning.current!.style.display = 'none'
                 styling.email.current!.style.border = 'transparent'
                 styling.pass.current!.style.border = 'transparent'

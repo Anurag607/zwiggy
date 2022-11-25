@@ -1,6 +1,5 @@
 /// <reference path='../typings.d.ts'/>
 import React from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
 import './globals/global.css'
 import Filter from '../mocks/components/filter/filter'
@@ -10,6 +9,10 @@ import SearchResult from './pages/searchResult/searchResult'
 import FoodItems from './pages/foodItems/foodItems'
 import Login from './pages/login/login'
 import Signup from './pages/signup/signup'
+import CustDash from './pages/dashboards/customer/dashboard'
+import Cart from './pages/cart/cart'
+import MgrDash from './pages/dashboards/manager/dashboard'
+import DelDash from './pages/dashboards/deliveryMan/dashboard'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
@@ -24,6 +27,8 @@ function App() {
         <Route path='/restaurant/:city/:id' element={<FoodItems />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/dashboard/:username' element={<CustDash />} />
+        <Route path='/cart' element={<Cart />} />
       </Routes>
     </BrowserRouter>
   )
