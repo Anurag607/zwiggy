@@ -10,7 +10,7 @@ const verifyToken = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, config.TOKEN_KEY);
+    const decoded = jwt.verify(token, "rayal10minhipadhega");
     req.user = decoded;
   } catch(err) {
     return res.status(403).send({message: "You are not authorized"});

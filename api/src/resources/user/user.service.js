@@ -10,6 +10,10 @@ const getCustomerById = async (id) => pool.query(`SELECT * FROM customer WHERE i
 
 const getDeliveryManById = async (id) => pool.query(`SELECT * FROM delivery_man WHERE id = ${id};`)
 
+const getRestaurantManagerById = async (id) => pool.query(`SELECT * FROM manager WHERE id = ${id};`)
+
+const getRestaurantManagerByRestaurantId = async (id) => pool.query(`SELECT * FROM manager WHERE restaurant_id = ${id}`)
+
 const createUser = async (data) => {
   const {name, password, phone_number, email, user_type} = data;
     const [res, ] = await pool.query(`
@@ -28,5 +32,7 @@ module.exports = {
   updateToken,
   createCustomer,
   getCustomerById,
-  getDeliveryManById
+  getDeliveryManById,
+  getRestaurantManagerById,
+  getRestaurantManagerByRestaurantId
 }
