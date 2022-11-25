@@ -8,11 +8,22 @@ const createOrder = async (ordered_by, restaurant_id, delivered_by) => {
     
     return res.insertId
 }
-
+const createOrderItems = async (orderID,fooditems)=>{
+    fooditems.forEach(async element => {
+        const[res, ]= await pool.query( `INSERT INTO orderitem 
+        VALUES (${orderID},${element[0]},${element[1]})`)
+    });
+} 
+const getOrderItemsById = async(id) =>{
+    const [res, ]=await pool.query(`SELECT * FROM orderitem where order_id =${id}`)
+    return res;
+}
 const getOrderById = async (id) => pool.query(`SELECT * FROM \`order\` WHERE id = ${id}`)
 
 module.exports = {
     getAllOrders,
     getOrderById,
-    createOrder
+    createOrder,
+    getOrderItemsById,
+    createOrderItems
 }
