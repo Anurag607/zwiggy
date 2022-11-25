@@ -4,7 +4,8 @@ const auth = require('./utils/auth');
 const restaurantRouter = require('./resources/restaurant/restaurant.router');
 const fooditemsRouter = require('./resources/fooditems/fooditems.router');
 const userRouter = require('./resources/user/user.router');
-
+const orderRouter = require('./resources/order/order.router')
+const myorderRouter=require('./resources/me/me.router')
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use('/api/user', userRouter);
 // app.use(auth.verifyToken);
 app.use('/api/restaurants', restaurantRouter);
 app.use('/api/fooditems',fooditemsRouter);
+app.use('/api/orders', orderRouter)
+app.use('/api/me',myorderRouter)
 
 app.listen("3000");
-

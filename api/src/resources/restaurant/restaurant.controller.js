@@ -4,7 +4,7 @@ const fooditemService=require('../fooditems/fooditems.service');
 const { json } = require('body-parser');
 
 const getAllRestaurants = async (req, res) => {
-  const data = await restaurantService.getAllRestaurants();
+  const [data, ] = await restaurantService.getAllRestaurants();
   res.status(200).json(JSON.parse(JSON.stringify(data)));
 }
 
@@ -22,17 +22,17 @@ const createRestaurant = async (req, res) => {
   req.body["rating"] = parseFloat(req.body["rating"]);
 
   const insertId = await restaurantService.createRestaurant(req.body);
-  const data = await restaurantService.getOneRestaurant(insertId);
+  const [data, ] = await restaurantService.getOneRestaurant(insertId);
   res.status(201).json(JSON.parse(JSON.stringify(data)));
 }
 
 const getRestaurantMenu = async (req,res)=>{
   const menu = {};
-  const data= await categoryService.getAllCategories(req.params['id']);
-  // console.log(data);
-  for(const i in data){
+  const [data, ] = await categoryService.getAllCategories(req.params['id']);
+
+  for(const i in data) {
     const { name, id } = data[i];
-    const fooditem=await fooditemService.getFoodItembyCategory(id);
+    const [fooditem, ] = await fooditemService.getFoodItembyCategory(id);
     menu[name] = fooditem;
   }
 
@@ -44,9 +44,23 @@ const getRestaurantsByCity = async (req, res) => {
   res.status(200).json(JSON.parse(JSON.stringify(data)));
 }
 
+const getRestaurants = async (req, res) => {
+  let id = req.params['id']
+  if(isNaN(id)) {
+    id = id.toLowerCase()
+    var [data, ] = await restaurantService.getRestaurantByCity(id);
+  }
+  else {
+    id = parseInt(id)
+    var [data, ] = await restaurantService.getRestaurantById(id);
+  }
+  res.status(200).json(JSON.parse(JSON.stringify(data)));
+}
+
 module.exports = {
   getAllRestaurants,
   createRestaurant,
   getRestaurantMenu,
+  getRestaurants,
   getRestaurantsByCity
 }

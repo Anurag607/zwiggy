@@ -54,7 +54,6 @@ const Dashboard = (props:{}) => {
             Setcontents(temp)
         }
     }, [])
-
     return (
         <div id='dashboard' className={styles.dashboard}>
             <div className={styles.sidebarLogoCont}>

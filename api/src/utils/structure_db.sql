@@ -34,16 +34,34 @@ CREATE TABLE delivery_man (
     FOREIGN KEY (id) REFERENCES user(id)
 );
 
-CREATE TABLE fooditem (
-    id INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    item_name VARCHAR(30) ,
-    cat_id INTEGER NOT NULL,
-    price FLOAT,
-    FOREIGN KEY (cat_id) REFERENCES category(id) 
- );
- 
 CREATE TABLE category (
     id INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
     rest_id INTEGER NOT NULL,
-    name VARCHAR(32) NOT NULL,FOREIGN KEY (rest_id) REFERENCES restaurant(id)
+    name VARCHAR(32) NOT NULL,
+    FOREIGN KEY (rest_id) REFERENCES restaurant(id)
  );
+
+CREATE TABLE fooditem (
+    id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    item_name VARCHAR(30) ,
+    price FLOAT,
+    cat_id INTEGER NOT NULL,
+    FOREIGN KEY (cat_id) REFERENCES category(id)
+ );
+ 
+CREATE TABLE `order` (
+    id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ordered_by INTEGER NOT NULL,
+    restaurant_id INTEGER NOT NULL,
+    delivered_by INTEGER NOT NULL,
+    status VARCHAR(15) NOT NULL DEFAULT "sent",
+    ordered_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (ordered_by) REFERENCES customer(id),
+    FOREIGN KEY (restaurant_id) REFERENCES restaurant(id),
+    FOREIGN KEY (delivered_by) REFERENCES delivery_man(id)
+)
+ CREATE TABLE orderitem (order_id INT NOT NULL , 
+    item_id INT NOT NULL , 
+    qty INT NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES `order`(id) ,
+    FOREIGN KEY (item_id) REFERENCES fooditem(id))
