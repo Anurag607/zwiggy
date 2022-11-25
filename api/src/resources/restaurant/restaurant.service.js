@@ -1,52 +1,24 @@
 const pool = require('../../utils/db.js')
 
-const getAllRestaurants = () => {
-  return new Promise((resolve, reject) => {
-    pool.query(`SELECT * FROM restaurant;`, (err, res, fields) => {
-      if(err) throw err;
-      resolve(res);
-    })
-  })
+const getAllRestaurants = async () => pool.query(`SELECT * FROM restaurant;`)
+
+const createRestaurant = async (data) => {
+  const res = await pool.query(` INSERT INTO restaurant (name, address, rating) VALUES 
+  ("${data['name']}", "${data['address']}", ${data['rating']})`)
+
+  return res.insertId
 }
 
-const createRestaurant = (data) => {
-  return new Promise((resolve, reject) => {
-    pool.query(`
-      INSERT INTO restaurant (name, address, rating)
-      VALUES ("${data['name']}", "${data['address']}", ${data['rating']})
-      `, (err, res, fields) => {
-        if(err) throw err;
-        resolve(res.insertId);
-      })
-  })
-}
+const getOneRestaurant = async (id) => pool.query(`SELECT * FROM restaurant WHERE id=${id}`)
 
-const getOneRestaurant = (id) => {
-  return new Promise((resolve, reject) => {
-    pool.query(`
-      SELECT * FROM restaurant
-      WHERE id=${id}`,
-      (err, res, fields) => {
-        if(err) throw err;
-        console.log(res);
-        resolve(res);     
-      })
-  })
-}
-const getRestaurantsByCity = (city) => {
-  return new Promise((resolve,reject) => {
-    pool.query(`
-    SELECT * FROM restaurant where city LIKE '${city}'` ,
-    (err,res,fields) => {
-      if(err) throw err;
-      resolve(res);
-    })
-  })
-}
+const getRestaurantsByCity = async (city) => pool.query(`SELECT * FROM restaurant WHERE city LIKE '${city}'` )
+
+const getRestaurantById = async (id) => pool.query(`SELECT * FROM restaurant WHERE id = ${id}`)
 
 module.exports = {
   getAllRestaurants,
   createRestaurant,
   getOneRestaurant,
-  getRestaurantsByCity
+  getRestaurantsByCity,
+  getRestaurantById
 }
