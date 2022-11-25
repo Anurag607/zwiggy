@@ -14,14 +14,23 @@ const createOrderItems = async (orderID,fooditems)=>{
         VALUES (${orderID},${element[0]},${element[1]})`)
     });
 } 
+
 const getOrderItemsById = async(id) =>await pool.query(`SELECT * FROM orderitem where order_id =${id}`)
 
 const getOrderById = async (id) => pool.query(`SELECT * FROM \`order\` WHERE id = ${id}`)
+
+const updateOrderStatus = async (status, id) => {
+    return pool.query(`UPDATE \`order\`
+                SET status = "${status}"
+                WHERE id=${id}`)
+}
 
 module.exports = {
     getAllOrders,
     getOrderById,
     createOrder,
     getOrderItemsById,
-    createOrderItems
+    createOrderItems,
+    updateOrderStatus
+
 }

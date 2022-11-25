@@ -29,7 +29,8 @@ const registerUser = async (req, res) => {
 
     const token = jwt.sign(
       {user_id: newUserId, email},
-      "aryan123",
+      "rayal10minhipadhega",
+
       {
         expiresIn: "2h"
       }
@@ -76,7 +77,7 @@ const loginUser = async (req, res) => {
 
     const token = jwt.sign(
       {user_id: user[0].id, email},
-      "aryan123",
+      "rayal10minhipadhega",
       {
         expiresIn: "2h"
       }

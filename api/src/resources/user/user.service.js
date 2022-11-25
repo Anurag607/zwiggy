@@ -12,6 +12,8 @@ const getDeliveryManById = async (id) => pool.query(`SELECT * FROM delivery_man 
 
 const getRestaurantManagerById = async (id) => pool.query(`SELECT * FROM manager WHERE id = ${id};`)
 
+const getRestaurantManagerByRestaurantId = async (id) => pool.query(`SELECT * FROM manager WHERE restaurant_id = ${id}`)
+
 const createUser = async (data) => {
   const {name, password, phone_number, email, user_type} = data;
     const [res, ] = await pool.query(`
@@ -31,5 +33,6 @@ module.exports = {
   createCustomer,
   getCustomerById,
   getDeliveryManById,
-  getRestaurantManagerById
+  getRestaurantManagerById,
+  getRestaurantManagerByRestaurantId
 }

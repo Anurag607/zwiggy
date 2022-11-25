@@ -39,6 +39,7 @@ const createOrder = async (req, res) => {
 
         const [newOrder, ] = await service.getOrderById(orderId)
         await service.createOrderItems(orderId, fooditems)
+
         const [newOrderitems,] = await service.getOrderItemsById(orderId)
 
         JSON.parse(JSON.stringify(newOrder))
@@ -51,7 +52,31 @@ const createOrder = async (req, res) => {
     }
 }
 
+const updateOrder = async (req, res) => {
+    const id = req.params.id
+    let [order, ] = await service.getOrderById(id)
+
+    if(order.length == 0) {
+        return res.status(400).json({message : "No such order"})
+    }
+
+    order = order[0]
+
+    const [[user], ] = await userService.getUserById(req.user.user_id)
+
+    if(user.user_type === "customer" && order.ordered_by !== user.id) {
+        return res.status(400).json({message: "Update not allowed"})
+    }
+
+    await service.updateOrderStatus(req.body.status, order.id);
+
+    [order, ] = await service.getOrderById(order.id)
+
+    return res.status(200).json(JSON.parse(JSON.stringify(order)))
+}
+
 module.exports = {
     getAllOrders,
-    createOrder
+    createOrder,
+    updateOrder
 }
