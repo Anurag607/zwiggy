@@ -248,7 +248,8 @@
         .currOrders {
             grid-area: four;
             @include align($dir:column);
-            padding-block: 0.25rem;
+            align-items: flex-start;
+            padding: 0.25rem 0.5rem;
             max-width: 40rem;
             z-index: 1;
             .info {
@@ -265,6 +266,7 @@
                 background-color: transparent;
                 div {
                     background-color: transparent;
+                    text-transform: capitalize;
                 }
             }
             .accept {

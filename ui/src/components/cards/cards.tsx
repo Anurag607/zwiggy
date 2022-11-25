@@ -30,7 +30,7 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
         qty: 0
     })
     const [cart, Setcart] = React.useState<{name: string, price: number, qty: number}[]>(JSON.parse(localStorage.getItem('cart') || '[]'))
-    const [finalCart, Setfinalcart] = React.useState<{name: string, price: number, qty: number}[]>(JSON.parse(localStorage.getItem('finalCart')|| '[]'))
+    const [finalCart, Setfinalcart] = React.useState<{name: string, price: number, qty: number}[]>(JSON.parse(localStorage.getItem('finalCart') || '[]'))
     const navigate = useNavigate()
 
     React.useEffect(() => {
@@ -42,15 +42,11 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
     }, [item])
     
     const UpdateCart = (props:CartProps) => {
-        console.log(a += 1)
-        // console.log(props.item)
-
         const itemExist = cart.find(item => item.name === props.item.name)
     
         if(!itemExist) {
             Setcart([props.item, ...cart])
             localStorage.setItem('cart', JSON.stringify(cart))
-            return
         } else {
             Setcart(currentCart => 
                 currentCart.map((obj,i) => 
@@ -61,8 +57,6 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
             )
             localStorage.setItem('cart', JSON.stringify(cart))
         }
-        console.log(JSON.parse(localStorage.getItem("cart")!))
-        console.log(JSON.parse(localStorage.getItem("finalCart")!))
     }
 
     const ProductCounter = (props : {itemName?: string, price?: number}) => {
@@ -172,6 +166,22 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
             </div>
         )
     }
+
+    const CartCard:React.FC<{heading?: string, content?:string, price?: number, image?: string}> = (props) => {
+        return (
+            <div className={styles.FoodCardWrapper}>
+                <div className={styles.img} style={{backgroundImage: `url(${props.image ? props.image : '/kheer.jpg'})`}} />
+                <section className={styles.content}>
+                    <h3>{props.heading}</h3>
+                    <p>{props.content}</p>
+                    <div>
+                        <div style={{width: '5rem', height: '2rem'}}/>
+                        <p className={styles.itemPrice}> ₹ {props.price} </p>
+                    </div>
+                </section>
+            </div>
+        )
+    }
     
     const FeaturesCards:React.FC<{heading?: string, content?:string, price?: number, image?: string}> = (props) => {
         return (
@@ -199,6 +209,12 @@ const Cards:React.FC<{type?:string, heading?: string, content?:string, price?: n
                 return <FoodCard heading={props.heading} content={props.content} price={props.price} image={props.image} />
                 break
             }
+
+            case 'foodCart' : {
+                return <CartCard heading={props.heading} content={props.content} price={props.price} image={props.image} />
+                break
+            }
+
             case 'order' : {
                 return <OrdersCard orderNum={props.order} contents={props.content} price={props.price} cust={props.cust} />
                 break

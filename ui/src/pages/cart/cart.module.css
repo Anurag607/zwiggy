@@ -13,7 +13,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   justify-content: flex-start;
   align-items: flex-start;
   overflow: scroll;
@@ -24,10 +24,45 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   justify-content: flex-start;
-  align-items: flex-start;
-  background-color: #e8e8e8;
   height: 100vh;
   width: 32.5vw;
+  padding-block: 2rem;
+  font-size: 1.25rem;
+  border-left: 0.1rem #e8e8e8 solid;
+  cursor: default;
+}
+.cartWrapper .content .bill div {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0rem;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 0.1rem #37474f solid;
+}
+.cartWrapper .content .bill .ttlamt {
+  padding-top: 2.5rem;
+  border: none;
+  cursor: default;
+}
+.cartWrapper .content .bill .ttlamt span:nth-child(2) {
+  padding: 0.25rem 1rem;
+  color: white;
+  background-color: red;
+}
+.cartWrapper .content .bill .checkout {
+  text-decoration: none;
+  justify-content: center;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border: none;
+  color: white;
+  background-color: #299617;
+  width: auto;
+  height: auto;
 }/*# sourceMappingURL=cart.module.css.map */
