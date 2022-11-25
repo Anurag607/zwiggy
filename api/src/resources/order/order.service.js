@@ -14,10 +14,8 @@ const createOrderItems = async (orderID,fooditems)=>{
         VALUES (${orderID},${element[0]},${element[1]})`)
     });
 } 
-const getOrderItemsById = async(id) =>{
-    const [res, ]=await pool.query(`SELECT * FROM orderitem where order_id =${id}`)
-    return res;
-}
+const getOrderItemsById = async(id) =>await pool.query(`SELECT * FROM orderitem where order_id =${id}`)
+
 const getOrderById = async (id) => pool.query(`SELECT * FROM \`order\` WHERE id = ${id}`)
 
 module.exports = {

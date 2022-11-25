@@ -39,7 +39,7 @@ const createOrder = async (req, res) => {
 
         const [newOrder, ] = await service.getOrderById(orderId)
         await service.createOrderItems(orderId, fooditems)
-        const [newOrderitems,] =await service.getOrderItemsById(orderId)
+        const [newOrderitems,] = await service.getOrderItemsById(orderId)
 
         JSON.parse(JSON.stringify(newOrder))
 
