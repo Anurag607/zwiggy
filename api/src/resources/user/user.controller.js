@@ -30,6 +30,7 @@ const registerUser = async (req, res) => {
     const token = jwt.sign(
       {user_id: newUserId, email},
       "rayal10minhipadhega",
+
       {
         expiresIn: "2h"
       }
