@@ -60,3 +60,8 @@ CREATE TABLE `order` (
     FOREIGN KEY (restaurant_id) REFERENCES restaurant(id),
     FOREIGN KEY (delivered_by) REFERENCES delivery_man(id)
 )
+ CREATE TABLE orderitem (order_id INT NOT NULL , 
+    item_id INT NOT NULL , 
+    qty INT NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES `order`(id) ,
+    FOREIGN KEY (item_id) REFERENCES fooditem(id))
